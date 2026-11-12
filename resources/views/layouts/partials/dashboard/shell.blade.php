@@ -25,7 +25,7 @@
         </div>
     </aside>
 
-    <div class="min-w-0 pb-24 lg:pb-0">
+    <div class="min-w-0 pb-28 lg:pb-0">
         <header class="sticky top-0 z-30 flex items-center gap-fs-xs border-b border-border bg-surface/90 px-fs-sm py-fs-xs backdrop-blur">
             <div class="min-w-0 flex-1">
                 <p class="text-xs text-text-muted">{{ auth()->user()->role->label() }}</p>
@@ -39,7 +39,7 @@
                 <button type="button" class="grid size-11 place-items-center rounded-fs-xl bg-success-soft text-sm font-semibold text-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus" @click="menu = !menu" :aria-expanded="menu ? 'true' : 'false'" aria-haspopup="menu" aria-label="Account menu for {{ auth()->user()->name }}">
                     {{ $initials }}
                 </button>
-                <div x-show="menu" x-cloak role="menu" class="absolute right-0 z-40 mt-fs-2xs w-56 rounded-fs-md border border-border bg-surface-raised p-fs-2xs text-sm shadow-fs-md">
+                <div x-show="menu" x-cloak role="menu" class="absolute right-0 z-40 mt-fs-2xs w-56 max-w-[calc(100vw-2rem)] rounded-fs-md border border-border bg-surface-raised p-fs-2xs text-sm shadow-fs-md">
                     <p class="px-fs-sm py-fs-2xs text-xs text-text-muted">{{ auth()->user()->name }}</p>
                     <a role="menuitem" href="{{ route('profile.edit') }}" class="block rounded-fs-sm px-fs-sm py-fs-2xs text-text hover:bg-surface-sunken focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus" @if (request()->routeIs('profile.edit')) aria-current="page" @endif>Account</a>
                     @if (auth()->user()->isVet())
@@ -66,7 +66,7 @@
                 <li>@include('layouts.partials.dashboard.link', ['item' => $item, 'variant' => 'tabs'])</li>
             @endforeach
             <li>
-                <button type="button" x-ref="moreTab" class="flex min-h-11 w-full flex-col items-center justify-center gap-fs-3xs px-fs-3xs text-[0.7rem] font-medium text-text-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus" @click="openDrawer()" :aria-expanded="drawer ? 'true' : 'false'" aria-controls="dashboard-drawer">
+                <button type="button" x-ref="moreTab" class="flex min-h-14 w-full min-w-0 flex-col items-center justify-center gap-fs-3xs px-0.5 text-center text-[0.65rem] font-medium leading-tight text-text-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus" @click="openDrawer()" :aria-expanded="drawer ? 'true' : 'false'" aria-controls="dashboard-drawer">
                     <x-ui.icon name="menu" size="sm" />
                     More
                 </button>
@@ -76,7 +76,7 @@
 
     <div x-show="drawer" x-cloak class="fixed inset-0 z-[60] lg:hidden" x-transition:enter="motion-safe:transition motion-safe:duration-fs-base motion-safe:ease-fs-enter" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="motion-safe:transition motion-safe:duration-fs-fast motion-safe:ease-fs-exit" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0">
         <div class="absolute inset-0 bg-text/40" @click="closeDrawer()"></div>
-        <div id="dashboard-drawer" x-ref="drawerPanel" role="dialog" aria-modal="true" aria-label="Menu" tabindex="-1" class="absolute inset-y-0 left-0 flex w-[min(100%,20rem)] flex-col overflow-y-auto bg-surface-raised p-fs-sm shadow-fs-lg" @keydown.tab="trap($event, $refs.drawerPanel)">
+        <div id="dashboard-drawer" x-ref="drawerPanel" role="dialog" aria-modal="true" aria-label="Menu" tabindex="-1" class="absolute inset-0 flex flex-col overflow-y-auto bg-surface-raised p-fs-sm pb-8" @keydown.tab="trap($event, $refs.drawerPanel)">
             <div class="mb-fs-sm flex items-center justify-between">
                 <p class="font-display text-lg font-semibold text-text">FurShield</p>
                 <button type="button" class="grid size-11 place-items-center rounded-fs-sm text-text hover:bg-surface-sunken focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus" @click="closeDrawer()" aria-label="Close menu">

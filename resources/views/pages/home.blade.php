@@ -50,7 +50,7 @@
     $shelterPhoto = \App\Support\DummyImages::describe(null, 'role', 2);
     $faqs = [
         ['pay', 'Can I pay inside FurShield?', 'Yes. Checkout accepts a card or pay on collection. The full card number is not stored.'],
-        ['delivery', 'Will a product be delivered?', 'No. Delivery is outside this product. The cart is a list you place, not a shipment.'],
+        ['delivery', 'Will a product be delivered?', 'Checkout can record pickup or delivery and keeps the address with the order. FurShield does not run a courier.'],
         ['pets', 'Can one owner keep more than one pet?', 'Yes. Each pet has its own record: identity, health notes, and documents.'],
         ['record', 'Who works from that record?', 'The owner holds it. A veterinarian uses it for appointments and treatments. A shelter uses it when listing an animal and answering adoption interest.'],
         ['visit', 'What happens when I book a visit?', 'You request a time. The veterinarian can approve it, reschedule it, or complete it, and can log the treatment afterward.'],
@@ -180,7 +180,7 @@
         <li>
             <p class="font-display text-5xl font-semibold text-tide">2</p>
             <h3 class="mt-4 font-display text-2xl font-semibold text-text">Book care and fill a cart</h3>
-            <p class="mt-3 text-text">Request a veterinarian from that record, and add essentials to a cart. Nothing is charged and nothing is shipped.</p>
+            <p class="mt-3 text-text">Request a veterinarian from that record, then check out supplies for pickup or delivery. Card numbers are not stored.</p>
         </li>
         <li>
             <p class="font-display text-5xl font-semibold text-tide">3</p>

@@ -21,7 +21,7 @@
     @if ($isCart) @click.prevent="$store.cart.show()" aria-controls="mini-cart" @endif
     @if ($item['active']) aria-current="page" @endif
     class="{{ $stacked
-        ? 'relative flex min-h-11 w-full flex-col items-center justify-center gap-fs-3xs px-fs-3xs text-[0.7rem] font-medium'
+        ? 'relative flex min-h-14 w-full min-w-0 flex-col items-center justify-center gap-fs-3xs overflow-hidden px-0.5 text-center text-[0.65rem] font-medium leading-tight'
         : 'flex min-h-11 items-center gap-fs-sm rounded-fs-sm px-fs-sm py-fs-2xs text-sm font-medium' }} {{ $item['active']
         ? 'bg-success-soft text-text'
         : 'text-text-muted hover:bg-surface-sunken hover:text-text' }} focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus"
@@ -38,7 +38,7 @@
             <span class="absolute -right-2 -top-1 grid min-w-4 place-items-center rounded-fs-xl px-fs-3xs text-[0.65rem] leading-4 {{ $badgeClass }}" aria-hidden="true">{{ $item['badge'] }}</span>
         @endif
     </span>
-    <span class="truncate">{{ $item['label'] }}</span>
+    <span @class(['w-full text-center' => $stacked, 'truncate' => ! $stacked])>{{ $item['label'] }}</span>
     @if (! $stacked && $isCart)
         <span data-cart-badge @class([
             'ml-auto rounded-fs-xl px-fs-2xs py-fs-3xs text-xs font-semibold',

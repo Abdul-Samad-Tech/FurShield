@@ -177,6 +177,12 @@
         @apply text-tide;
     }
 
+    @media (max-width: 22rem) {
+        .fs-brand-name {
+            display: none;
+        }
+    }
+
     .timeline-dot {
         @apply absolute -left-[9px] top-1 h-4 w-4 rounded-full border-4 border-mist bg-tide;
     }

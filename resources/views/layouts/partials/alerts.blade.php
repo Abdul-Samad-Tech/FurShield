@@ -14,7 +14,7 @@
     <a
         href="{{ route('notifications.index') }}"
         class="relative grid size-11 place-items-center rounded-fs-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus {{ $public ? '' : 'text-text hover:bg-surface-sunken' }}"
-        @if ($public) :class="$parent.scrolled ? 'text-ink' : 'text-white'" @endif
+        @if ($public) :class="($parent.scrolled || $parent.open) ? 'text-ink' : 'text-white'" @endif
         @click.prevent="toggle()"
         :aria-expanded="open ? 'true' : 'false'"
         aria-haspopup="dialog"
@@ -34,7 +34,7 @@
         x-cloak
         role="dialog"
         aria-label="Notifications"
-        class="absolute right-0 z-50 mt-fs-2xs w-80 max-w-[calc(100vw-2rem)] rounded-fs-md border border-border bg-surface-raised p-fs-sm text-text shadow-fs-md"
+        class="absolute right-0 z-50 mt-fs-2xs w-[min(20rem,calc(100vw-2rem))] rounded-fs-md border border-border bg-surface-raised p-fs-sm text-text shadow-fs-md max-sm:fixed max-sm:inset-x-4 max-sm:right-auto max-sm:top-[4.75rem] max-sm:mt-0 max-sm:w-auto"
     >
         <div class="flex items-center justify-between gap-fs-sm">
             <p class="font-display text-lg font-semibold">Notifications</p>
