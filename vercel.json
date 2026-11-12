@@ -1,0 +1,46 @@
+{
+    "$schema": "https://openapi.vercel.sh/vercel.json",
+    "regions": ["sin1"],
+    "builds": [
+        {
+            "src": "/api/index.php",
+            "use": "vercel-php@0.7.4"
+        },
+        {
+            "src": "/public/**",
+            "use": "@vercel/static"
+        }
+    ],
+    "routes": [
+        { "src": "/build/(.*)", "dest": "/public/build/$1" },
+        { "src": "/images/(.*)", "dest": "/public/images/$1" },
+        { "src": "/favicon.ico", "dest": "/public/favicon.ico" },
+        { "src": "/robots.txt", "dest": "/public/robots.txt" },
+        { "src": "/(.*)", "dest": "/api/index.php" }
+    ],
+    "env": {
+        "APP_NAME": "FurShield",
+        "APP_ENV": "production",
+        "APP_DEBUG": "false",
+        "APP_CONFIG_CACHE": "/tmp/config.php",
+        "APP_EVENTS_CACHE": "/tmp/events.php",
+        "APP_PACKAGES_CACHE": "/tmp/packages.php",
+        "APP_ROUTES_CACHE": "/tmp/routes.php",
+        "APP_SERVICES_CACHE": "/tmp/services.php",
+        "CACHE_STORE": "database",
+        "LOG_CHANNEL": "stderr",
+        "SESSION_DRIVER": "database",
+        "SESSION_SECURE_COOKIE": "true",
+        "VIEW_COMPILED_PATH": "/tmp/storage/framework/views",
+        "QUEUE_CONNECTION": "sync",
+        "DB_CONNECTION": "pgsql",
+        "DB_HOST": "aws-0-ap-southeast-1.pooler.supabase.com",
+        "DB_PORT": "5432",
+        "DB_DATABASE": "postgres",
+        "DB_USERNAME": "postgres.jnttninqzqmkbtoivujv",
+        "DB_SSLMODE": "require",
+        "GOOGLE_CLIENT_ID": "876379877197-78imf2rq5vne0sh2qhbuq3hd6ah6jhre.apps.googleusercontent.com",
+        "VITE_GOOGLE_CLIENT_ID": "876379877197-78imf2rq5vne0sh2qhbuq3hd6ah6jhre.apps.googleusercontent.com",
+        "GOOGLE_CLOCK_TOLERANCE_SEC": "60"
+    }
+}

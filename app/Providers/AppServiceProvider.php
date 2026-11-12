@@ -9,6 +9,7 @@ use App\Services\ShellBadgeService;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -19,7 +20,28 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        if (! getenv('VERCEL')) {
+            return;
+        }
+
+        $path = '/tmp/storage';
+
+        foreach ([
+            'app/public',
+            'app/private',
+            'framework/cache/data',
+            'framework/sessions',
+            'framework/views',
+            'logs',
+        ] as $dir) {
+            $full = $path.'/'.$dir;
+
+            if (! is_dir($full)) {
+                mkdir($full, 0777, true);
+            }
+        }
+
+        $this->app->useStoragePath($path);
     }
 
     /**
@@ -27,6 +49,18 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        if (getenv('VERCEL')) {
+            $host = getenv('VERCEL_ENV') === 'production'
+                ? (getenv('VERCEL_PROJECT_PRODUCTION_URL') ?: getenv('VERCEL_URL'))
+                : getenv('VERCEL_URL');
+
+            if (is_string($host) && $host !== '') {
+                URL::forceRootUrl('https://'.$host);
+            }
+
+            URL::forceScheme('https');
+        }
+
         RateLimiter::for('pet-public', function (Request $request) {
             return Limit::perMinute(30)->by($request->ip());
         });
