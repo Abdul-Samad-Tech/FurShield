@@ -8,7 +8,7 @@ return [
         ['label' => 'Appointments', 'route' => 'owner.appointments.index', 'active' => ['owner.appointments.*'], 'icon' => 'calendar', 'badge' => 'appointments', 'tab' => true],
         ['label' => 'Shop', 'route' => 'products.index', 'active' => ['products.*'], 'icon' => 'shopping-bag'],
         ['label' => 'Cart', 'route' => 'owner.cart.index', 'active' => ['owner.cart.index', 'owner.cart.add', 'owner.cart.update', 'owner.cart.remove', 'owner.cart.items.show'], 'icon' => 'shopping-cart', 'badge' => 'cart', 'tab' => true],
-        ['label' => 'Orders', 'route' => 'owner.cart.orders', 'active' => ['owner.cart.orders', 'owner.cart.checkout'], 'icon' => 'receipt'],
+        ['label' => 'Orders', 'route' => 'owner.cart.orders', 'active' => ['owner.cart.orders', 'owner.checkout.*', 'owner.orders.*'], 'icon' => 'receipt'],
         ['label' => 'Adopt', 'route' => 'adopt.index', 'active' => ['adopt.*'], 'icon' => 'heart'],
         ['label' => 'Vets', 'route' => 'vets.index', 'active' => ['vets.*'], 'icon' => 'stethoscope'],
         ['label' => 'Care Tips', 'route' => 'care.index', 'active' => ['care.*'], 'icon' => 'book-open'],

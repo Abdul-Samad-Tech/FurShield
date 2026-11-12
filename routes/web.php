@@ -12,6 +12,7 @@ use App\Http\Controllers\PublicPetController;
 use App\Http\Controllers\Owner\AppointmentController as OwnerAppointmentController;
 use App\Http\Controllers\Owner\AssistantController;
 use App\Http\Controllers\Owner\CartController;
+use App\Http\Controllers\Owner\CheckoutController;
 use App\Http\Controllers\Owner\HealthRecordController;
 use App\Http\Controllers\Owner\PetController;
 use App\Http\Controllers\ProductController;
@@ -100,8 +101,11 @@ Route::middleware('auth')->group(function (): void {
         Route::get('cart/items/{orderItem}', [CartController::class, 'showItem'])->name('cart.items.show');
         Route::match(['put', 'patch'], 'cart/items/{orderItem}', [CartController::class, 'update'])->name('cart.update');
         Route::delete('cart/items/{orderItem}', [CartController::class, 'remove'])->name('cart.remove');
-        Route::post('cart/checkout', [CartController::class, 'checkout'])->name('cart.checkout');
+        Route::get('checkout', [CheckoutController::class, 'create'])->name('checkout.create');
+        Route::post('checkout', [CheckoutController::class, 'store'])->name('checkout.store');
         Route::get('orders', [CartController::class, 'orders'])->name('cart.orders');
+        Route::get('orders/{order}', [CheckoutController::class, 'show'])->name('orders.show');
+        Route::post('orders/{order}/cancel', [CheckoutController::class, 'cancel'])->name('orders.cancel');
 
         Route::post('assistant', [AssistantController::class, 'store'])
             ->middleware('throttle:assistant')

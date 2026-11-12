@@ -9,7 +9,6 @@ use App\Models\Product;
 use App\Models\User;
 use App\Support\DummyImages;
 use App\Support\Furshield;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 
@@ -28,7 +27,7 @@ class CartService
             'count' => $items->count(),
             'total_label' => Furshield::money($order?->total_amount ?? 0),
             'currency' => Furshield::currencySymbol(),
-            'checkout_url' => route('owner.cart.checkout'),
+            'checkout_url' => route('owner.checkout.create'),
             'cart_url' => route('owner.cart.index'),
             'shop_url' => route('products.index'),
             'items' => $items->map(fn (OrderItem $item): array => $this->presentItem($item))->values()->all(),
@@ -126,73 +125,6 @@ class CartService
             }
 
             return $name.' removed from your cart.';
-        });
-    }
-
-    public function checkout(User $owner): string
-    {
-        return DB::transaction(function () use ($owner): string {
-            $order = Order::query()
-                ->where('owner_id', $owner->id)
-                ->where('status', OrderStatus::Cart)
-                ->lockForUpdate()
-                ->first();
-
-            $items = $order?->items()->lockForUpdate()->get() ?? collect();
-
-            if ($order === null || $items->isEmpty()) {
-                throw ValidationException::withMessages([
-                    'cart' => 'Your cart is empty.',
-                ]);
-            }
-
-            $products = Product::query()
-                ->whereIn('id', $items->pluck('product_id'))
-                ->orderBy('id')
-                ->lockForUpdate()
-                ->get()
-                ->keyBy('id');
-
-            $errors = [];
-
-            foreach ($items as $item) {
-                $product = $products->get($item->product_id);
-
-                if ($product === null || ! $product->is_active) {
-                    $errors[] = 'A product in your cart is no longer available.';
-
-                    continue;
-                }
-
-                if ($product->stock_quantity < $item->quantity) {
-                    $errors[] = 'Only '.$product->stock_quantity.' left of '.$product->name.'. Your cart asks for '.$item->quantity.'.';
-                }
-            }
-
-            if ($errors !== []) {
-                throw ValidationException::withMessages([
-                    'cart' => $errors,
-                ]);
-            }
-
-            foreach ($items as $item) {
-                $products->get($item->product_id)->decrement('stock_quantity', $item->quantity);
-            }
-
-            $order->update([
-                'status' => OrderStatus::Placed,
-                'order_date' => Carbon::now('UTC'),
-            ]);
-
-            app(NotificationService::class)->notify(
-                $owner,
-                'Order placed',
-                'Order #'.$order->id.' was placed. Payment and delivery are not part of FurShield.',
-                'order',
-                route('owner.cart.orders')
-            );
-
-            return 'Order placed. Payment and delivery are not part of FurShield.';
         });
     }
 

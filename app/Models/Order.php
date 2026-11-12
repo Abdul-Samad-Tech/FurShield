@@ -2,12 +2,16 @@
 
 namespace App\Models;
 
+use App\Enums\FulfillmentMethod;
 use App\Enums\OrderStatus;
+use App\Enums\PaymentMethod;
+use App\Enums\PaymentStatus;
 use Database\Factories\OrderFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Order extends Model
 {
@@ -22,6 +26,15 @@ class Order extends Model
         'total_amount',
         'status',
         'order_date',
+        'contact_name',
+        'contact_phone',
+        'contact_email',
+        'fulfillment',
+        'address_line',
+        'city',
+        'notes',
+        'payment_method',
+        'payment_status',
     ];
 
     /**
@@ -33,7 +46,15 @@ class Order extends Model
             'total_amount' => 'decimal:2',
             'status' => OrderStatus::class,
             'order_date' => 'datetime',
+            'fulfillment' => FulfillmentMethod::class,
+            'payment_method' => PaymentMethod::class,
+            'payment_status' => PaymentStatus::class,
         ];
+    }
+
+    public function payment(): HasOne
+    {
+        return $this->hasOne(Payment::class);
     }
 
     public function owner(): BelongsTo

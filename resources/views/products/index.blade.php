@@ -23,7 +23,7 @@
 >
     <div>
         <h1 class="text-balance font-display text-4xl font-bold text-text sm:text-5xl">Pet care shop</h1>
-        <p class="mt-fs-2xs max-w-[65ch] text-text">Browse food, grooming, toys, health, accessories, and training. The cart places an order. There is no payment and no delivery.</p>
+        <p class="mt-fs-2xs max-w-[65ch] text-text">Browse food, grooming, toys, health, accessories, and training. Checkout takes contact details, a pickup or delivery address, and payment.</p>
     </div>
 
     <div class="sticky top-20 z-30 -mx-4 mt-fs-md border-y border-border bg-surface/95 px-4 py-fs-sm backdrop-blur sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">

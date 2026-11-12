@@ -90,27 +90,13 @@ class CartController extends Controller
         return back()->with('success', $message);
     }
 
-    public function checkout(Request $request): JsonResponse|RedirectResponse
-    {
-        $message = $this->carts->checkout($request->user());
-
-        if ($request->expectsJson()) {
-            return response()->json([
-                'message' => $message,
-                'redirect' => route('owner.cart.orders'),
-            ]);
-        }
-
-        return redirect()->route('owner.cart.orders')->with('success', $message);
-    }
-
     public function orders(): View
     {
         $orders = Order::query()
             ->where('owner_id', auth()->id())
-            ->where('status', OrderStatus::Placed)
-            ->with('items.product')
-            ->latest()
+            ->where('status', '!=', OrderStatus::Cart)
+            ->with(['items.product', 'payment'])
+            ->latest('order_date')
             ->paginate(10);
 
         return view('owner.cart.orders', compact('orders'));

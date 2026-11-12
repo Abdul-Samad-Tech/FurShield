@@ -2,7 +2,7 @@
 @section('title', 'Cart')
 @section('content')
 <h1 class="font-display text-4xl font-bold text-text">Your cart</h1>
-<p class="mt-fs-2xs text-text-muted">Placing an order does not take payment and does not deliver anything.</p>
+<p class="mt-fs-2xs text-text-muted">Review the cart, then continue to checkout to add contact details and payment.</p>
 
 <div x-data x-cloak>
     <template x-if="$store.cart.items.length === 0">
@@ -37,7 +37,7 @@
         </template>
         <div class="flex flex-wrap items-center justify-between gap-fs-sm rounded-fs-lg border border-border bg-surface-raised p-fs-md">
             <p class="font-display text-2xl font-semibold text-text" x-text="'Total ' + $store.cart.total_label"></p>
-            <button type="button" class="inline-flex min-h-11 items-center justify-center rounded-fs-md bg-success px-fs-md text-sm font-medium text-text-inverse focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus" @click="$store.cart.checkout()">Place order (no payment)</button>
+            <a href="{{ route('owner.checkout.create') }}" class="inline-flex min-h-11 items-center justify-center rounded-fs-md bg-success px-fs-md text-sm font-medium text-text-inverse focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus">Checkout</a>
         </div>
         <p x-show="$store.cart.error" x-cloak class="rounded-fs-md border border-danger/30 bg-danger-soft px-fs-sm py-fs-xs text-sm text-text" role="alert" x-text="$store.cart.error"></p>
     </div>
@@ -64,11 +64,8 @@
                     </form>
                 </article>
             @endforeach
-            <form method="POST" action="{{ route('owner.cart.checkout') }}">
-                @csrf
-                <p class="font-display text-2xl">Total {{ \App\Support\Furshield::money($order->total_amount) }}</p>
-                <button type="submit" class="mt-fs-sm min-h-11 rounded-fs-md bg-success px-fs-md text-text-inverse">Place order (no payment)</button>
-            </form>
+            <p class="font-display text-2xl">Total {{ \App\Support\Furshield::money($order->total_amount) }}</p>
+            <a href="{{ route('owner.checkout.create') }}" class="mt-fs-sm inline-flex min-h-11 items-center rounded-fs-md bg-success px-fs-md text-text-inverse">Checkout</a>
         </div>
     @else
         <p class="mt-fs-md text-text">Cart is empty. <a href="{{ route('products.index') }}">Browse products</a></p>

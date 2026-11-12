@@ -1,36 +1,43 @@
 @extends('layouts.dashboard')
 @section('title', 'Orders')
 @section('content')
-<h1 class="font-display text-4xl font-bold">Placed orders</h1>
-<div class="mt-8 space-y-4">
+<h1 class="font-display text-4xl font-bold text-text">Orders</h1>
+<p class="mt-fs-2xs text-text-muted">Receipts for orders you have placed. Open one to see payment and cancel it while it is still open.</p>
+
+<div class="mt-fs-md space-y-fs-sm">
     @forelse ($orders as $order)
-        <div class="surface p-5">
-            <div class="flex flex-wrap items-center justify-between gap-3">
-                <div class="font-display text-xl font-semibold">Order #{{ $order->id }}</div>
-                <div class="text-sm text-ink-mute">{{ optional($order->order_date)->format('M d, Y g:i A') }}</div>
+        <article class="rounded-fs-lg border border-border bg-surface-raised p-fs-md">
+            <div class="flex flex-wrap items-start justify-between gap-fs-sm">
+                <div>
+                    <h2 class="font-display text-2xl font-semibold text-text">
+                        <a href="{{ route('owner.orders.show', $order) }}" class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus">Order #{{ $order->id }}</a>
+                    </h2>
+                    <p class="mt-fs-3xs text-sm text-text-muted">{{ optional($order->order_date)->timezone(config('app.timezone'))->format('M j, Y g:i A') }}</p>
+                </div>
+                <div class="flex flex-wrap gap-fs-2xs">
+                    @if ($order->payment_status)
+                        <x-ui.status-pill :variant="$order->payment_status->tone()">{{ $order->payment_status->label() }}</x-ui.status-pill>
+                    @endif
+                    <x-ui.status-pill :variant="$order->status === \App\Enums\OrderStatus::Cancelled ? 'danger' : 'success'">{{ $order->status->label() }}</x-ui.status-pill>
+                </div>
             </div>
-            <div class="mt-4 space-y-3">
+            <ul class="mt-fs-sm space-y-fs-2xs text-sm text-text">
                 @foreach ($order->items as $item)
-                    <div class="flex flex-wrap items-start gap-3 rounded-2xl border border-mist-deep bg-mist/40 p-3">
-                        <x-card-image :src="$item->product->image_path" type="product" :seed="$item->product->id" :alt="$item->product->name" variant="thumb" />
-                        <div class="min-w-0 flex-1">
-                            <div class="text-xs font-semibold uppercase tracking-[0.18em] text-tide">{{ $item->product->category->label() }}</div>
-                            <a href="{{ route('products.show', $item->product) }}" class="font-medium hover:text-tide">{{ $item->product->name }}</a>
-                            <p class="mt-1 line-clamp-2 text-sm text-ink-mute">{{ $item->product->description }}</p>
-                            <div class="mt-2 text-sm text-ink-soft">
-                                {{ $item->quantity }} × {{ \App\Support\Furshield::money($item->price_each) }}
-                                = <strong class="text-ink">{{ \App\Support\Furshield::money($item->price_each * $item->quantity) }}</strong>
-                                · ★ {{ number_format((float) $item->product->average_rating, 1) }}
-                            </div>
-                        </div>
-                    </div>
+                    <li>{{ $item->quantity }} × {{ $item->product?->name ?? 'Removed product' }}</li>
                 @endforeach
+            </ul>
+            <div class="mt-fs-sm flex flex-wrap items-center justify-between gap-fs-sm">
+                <p class="font-semibold text-text">Total {{ \App\Support\Furshield::money($order->total_amount) }}</p>
+                <x-ui.button :href="route('owner.orders.show', $order)" variant="secondary">View receipt</x-ui.button>
             </div>
-            <div class="mt-4 font-semibold">Total {{ \App\Support\Furshield::money($order->total_amount) }}</div>
-        </div>
+        </article>
     @empty
-        <div class="surface p-8 text-ink-mute">No orders yet.</div>
+        <x-ui.empty-state title="No orders yet" icon="receipt" description="When you check out, the receipt will show up here.">
+            <x-slot:action>
+                <x-ui.button :href="route('products.index')">Browse products</x-ui.button>
+            </x-slot:action>
+        </x-ui.empty-state>
     @endforelse
 </div>
-<div class="mt-6">{{ $orders->links() }}</div>
+<div class="mt-fs-md">{{ $orders->links() }}</div>
 @endsection

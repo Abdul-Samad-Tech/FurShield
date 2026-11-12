@@ -14,8 +14,12 @@ use App\Models\AdoptionListing;
 use App\Models\Appointment;
 use App\Models\CareArticle;
 use App\Models\HealthRecord;
+use App\Enums\FulfillmentMethod;
+use App\Enums\PaymentMethod;
+use App\Enums\PaymentStatus;
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Models\Payment;
 use App\Models\Pet;
 use App\Models\Product;
 use App\Models\RolePrivilege;
@@ -194,6 +198,22 @@ class DatabaseSeeder extends Seeder
             'total_amount' => 14.75,
             'status' => OrderStatus::Placed,
             'order_date' => Carbon::now('UTC')->subDays(2),
+            'contact_name' => $ayesha->name,
+            'contact_phone' => $ayesha->phone,
+            'contact_email' => $ayesha->email,
+            'fulfillment' => FulfillmentMethod::Pickup,
+            'payment_method' => PaymentMethod::Card,
+            'payment_status' => PaymentStatus::Paid,
+        ]);
+        Payment::query()->create([
+            'order_id' => $order->id,
+            'method' => PaymentMethod::Card,
+            'status' => PaymentStatus::Paid,
+            'amount' => 14.75,
+            'reference' => 'FS-SAMPLE01',
+            'card_brand' => 'Visa',
+            'card_last4' => '4242',
+            'paid_at' => Carbon::now('UTC')->subDays(2),
         ]);
         OrderItem::query()->create([
             'order_id' => $order->id,
@@ -206,7 +226,7 @@ class DatabaseSeeder extends Seeder
         $notifier->notify($ayesha, 'Milo is due for care in 3 days', 'Rabies booster is on the sample timeline. Open Milo to review it.', 'reminder', '/owner/pets');
         $notifier->notify($ayesha, 'Luna is overdue for care', 'Flea treatment is past the sample due date.', 'reminder', '/owner/pets');
         $notifier->notify($ayesha, 'Visit requested', 'Milo has a pending sample visit with Dr. Hassan Ali.', 'appointment', '/owner/appointments');
-        $notifier->notify($ayesha, 'Order placed', 'Sample order for the Clicker Training Kit. Payment and delivery are not part of FurShield.', 'order', '/owner/orders');
+        $notifier->notify($ayesha, 'Order placed', 'Sample order for the Clicker Training Kit. Paid with Visa ending 4242.', 'order', '/owner/orders/'.$order->id);
         $notifier->notify($bilal, 'Visit approved', 'Coco’s sample follow-up with Dr. Noor Fatima is approved.', 'appointment', '/owner/appointments');
         $notifier->notify($fatima, 'Visit moved', 'Bruno’s sample dermatology visit was rescheduled.', 'appointment', '/owner/appointments');
         $notifier->notify($fatima, 'Bruno is due for care tomorrow', 'Dental check is on tomorrow’s sample timeline.', 'reminder', '/owner/pets');

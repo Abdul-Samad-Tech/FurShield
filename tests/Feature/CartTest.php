@@ -87,9 +87,9 @@ class CartTest extends TestCase
         $leash->update(['stock_quantity' => 1]);
 
         $this->actingAs($owner)
-            ->from(route('owner.cart.index'))
-            ->post(route('owner.cart.checkout'))
-            ->assertRedirect(route('owner.cart.index'))
+            ->from(route('owner.checkout.create'))
+            ->post(route('owner.checkout.store'), $this->checkoutPayload($owner))
+            ->assertRedirect(route('owner.checkout.create'))
             ->assertSessionHasErrors('cart');
 
         $this->assertStringContainsString(
@@ -98,7 +98,7 @@ class CartTest extends TestCase
         );
 
         $this->actingAs($owner)
-            ->postJson(route('owner.cart.checkout'))
+            ->postJson(route('owner.checkout.store'), $this->checkoutPayload($owner))
             ->assertStatus(422)
             ->assertJsonPath('errors.cart.0', 'Only 1 left of City leash. Your cart asks for 3.');
 
@@ -115,8 +115,8 @@ class CartTest extends TestCase
         $this->actingAs($owner)->post(route('owner.cart.add', $product), ['quantity' => 2]);
 
         $this->actingAs($owner)
-            ->post(route('owner.cart.checkout'))
-            ->assertRedirect(route('owner.cart.orders'))
+            ->post(route('owner.checkout.store'), $this->checkoutPayload($owner))
+            ->assertRedirect(route('owner.orders.show', Order::query()->first()))
             ->assertSessionHas('success');
 
         $this->assertSame(8, $product->fresh()->stock_quantity);
@@ -172,12 +172,26 @@ class CartTest extends TestCase
         $this->assertStringNotContainsString('Salmon kibble', $slice);
 
         $this->actingAs($owner)->post(route('owner.cart.add', $wand), ['quantity' => 1]);
-        $this->actingAs($owner)->post(route('owner.cart.checkout'));
+        $this->actingAs($owner)->post(route('owner.checkout.store'), $this->checkoutPayload($owner));
 
         $again = $this->actingAs($owner)->get(route('products.index'));
         $again->assertSee('Buy again');
         $buyAgain = $this->between($again->getContent(), 'id="buy-again-heading"', 'id="shop-grid"');
         $this->assertStringContainsString('Feather wand', $buyAgain);
+    }
+
+    /**
+     * @return array<string, string>
+     */
+    private function checkoutPayload(User $owner): array
+    {
+        return [
+            'contact_name' => $owner->name,
+            'contact_phone' => '03001234567',
+            'contact_email' => $owner->email,
+            'fulfillment' => 'pickup',
+            'payment_method' => 'pay_on_collection',
+        ];
     }
 
     private function product(string $name, ProductCategory $category, int $stock, string $description): Product

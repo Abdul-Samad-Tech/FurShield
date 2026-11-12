@@ -54,7 +54,7 @@
             <div class="border-t border-border px-fs-md py-fs-sm">
                 <p class="font-display text-xl font-semibold" x-text="'Total ' + $store.cart.total_label"></p>
                 <div class="mt-fs-sm flex flex-wrap gap-fs-2xs">
-                    <button type="button" class="inline-flex min-h-11 flex-1 items-center justify-center rounded-fs-md bg-success px-fs-md text-sm font-medium text-text-inverse focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus disabled:opacity-60" :disabled="$store.cart.items.length === 0 || $store.cart.busy" @click="$store.cart.checkout()">Place order</button>
+                    <a :href="$store.cart.checkout_url" class="inline-flex min-h-11 flex-1 items-center justify-center rounded-fs-md bg-success px-fs-md text-sm font-medium text-text-inverse focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus" :class="$store.cart.items.length === 0 ? 'pointer-events-none opacity-60' : ''" :aria-disabled="$store.cart.items.length === 0 ? 'true' : 'false'">Checkout</a>
                     <a :href="$store.cart.cart_url" class="inline-flex min-h-11 items-center justify-center rounded-fs-md border border-border-strong px-fs-md text-sm font-medium text-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus">View cart</a>
                 </div>
             </div>

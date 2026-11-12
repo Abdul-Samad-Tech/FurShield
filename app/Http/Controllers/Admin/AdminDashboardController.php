@@ -38,7 +38,7 @@ class AdminDashboardController extends Controller
     {
         return $this->csv(
             'furshield-orders-'.now()->toDateString().'.csv',
-            ['Order', 'Owner', 'Email', 'Status', 'Total', 'Order date', 'Items'],
+            ['Order', 'Owner', 'Email', 'Status', 'Payment', 'Fulfillment', 'Total', 'Order date', 'Items'],
             $orders->rows(),
         );
     }

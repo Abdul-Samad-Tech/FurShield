@@ -49,7 +49,7 @@
     $vetPhoto = \App\Support\DummyImages::describe(null, 'role', 1);
     $shelterPhoto = \App\Support\DummyImages::describe(null, 'role', 2);
     $faqs = [
-        ['pay', 'Can I pay inside FurShield?', 'No. The cart collects an order. There is no payment gateway.'],
+        ['pay', 'Can I pay inside FurShield?', 'Yes. Checkout accepts a card or pay on collection. The full card number is not stored.'],
         ['delivery', 'Will a product be delivered?', 'No. Delivery is outside this product. The cart is a list you place, not a shipment.'],
         ['pets', 'Can one owner keep more than one pet?', 'Yes. Each pet has its own record: identity, health notes, and documents.'],
         ['record', 'Who works from that record?', 'The owner holds it. A veterinarian uses it for appointments and treatments. A shelter uses it when listing an animal and answering adoption interest.'],
@@ -83,7 +83,7 @@
             <img src="{{ $shopPhoto['url'] }}" width="{{ $shopPhoto['width'] }}" height="{{ $shopPhoto['height'] }}" alt="{{ $shopPhoto['alt'] }}" class="h-36 w-full object-cover" loading="lazy" decoding="async">
             <div class="p-8">
                 <h3 class="font-display text-2xl font-semibold">Shop essentials</h3>
-                <p class="mt-3">Food, grooming, toys, and care supplies go in a cart. There is no payment and no delivery.</p>
+                <p class="mt-3">Food, grooming, toys, and care supplies go in a cart. Checkout records payment and whether the order is picked up or delivered.</p>
             </div>
         </a>
         <a href="{{ route('adopt.index') }}" class="overflow-hidden rounded-fs-lg border border-border bg-surface-raised text-text shadow-fs-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus focus-visible:ring-offset-2 md:col-span-3">

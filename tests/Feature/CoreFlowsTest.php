@@ -138,9 +138,15 @@ class CoreFlowsTest extends TestCase
         $toy->update(['stock_quantity' => 0]);
 
         $this->actingAs($owner)
-            ->from(route('owner.cart.index'))
-            ->post(route('owner.cart.checkout'))
-            ->assertRedirect(route('owner.cart.index'))
+            ->from(route('owner.checkout.create'))
+            ->post(route('owner.checkout.store'), [
+                'contact_name' => $owner->name,
+                'contact_phone' => '03001234567',
+                'contact_email' => $owner->email,
+                'fulfillment' => 'pickup',
+                'payment_method' => 'pay_on_collection',
+            ])
+            ->assertRedirect(route('owner.checkout.create'))
             ->assertSessionHasErrors('cart');
 
         $this->assertSame(4, $kibble->fresh()->stock_quantity);
