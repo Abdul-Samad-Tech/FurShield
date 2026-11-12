@@ -105,6 +105,7 @@ Route::middleware('auth')->group(function (): void {
         Route::post('checkout', [CheckoutController::class, 'store'])->name('checkout.store');
         Route::get('orders', [CartController::class, 'orders'])->name('cart.orders');
         Route::get('orders/{order}', [CheckoutController::class, 'show'])->name('orders.show');
+        Route::get('orders/{order}/receipt', [CheckoutController::class, 'download'])->name('orders.receipt');
         Route::post('orders/{order}/cancel', [CheckoutController::class, 'cancel'])->name('orders.cancel');
 
         Route::post('assistant', [AssistantController::class, 'store'])

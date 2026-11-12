@@ -2,11 +2,13 @@
 
 namespace Tests\Feature;
 
+use App\Mail\WelcomeMail;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Log\Events\MessageLogged;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Tests\TestCase;
 
 class GoogleSignInTest extends TestCase
@@ -27,6 +29,7 @@ class GoogleSignInTest extends TestCase
         ]);
 
         Http::preventStrayRequests();
+        Mail::fake();
     }
 
     public function test_a_new_gmail_account_joins_as_an_owner(): void
@@ -46,6 +49,13 @@ class GoogleSignInTest extends TestCase
         $this->assertNotNull($user);
         $this->assertSame('owner', $user->role->value);
         $this->assertNotNull($user->email_verified_at);
+
+        Mail::assertSent(WelcomeMail::class, function (WelcomeMail $mail): bool {
+            return $mail->joined
+                && $mail->hasTo('new.owner@gmail.com')
+                && $mail->envelope()->subject === 'Welcome to FurShield'
+                && str_contains($mail->render(), 'Your Gmail account is now a FurShield pet owner account');
+        });
     }
 
     public function test_an_existing_account_keeps_its_role(): void
@@ -64,6 +74,12 @@ class GoogleSignInTest extends TestCase
         $this->assertAuthenticatedAs($vet);
         $this->assertSame(1, User::query()->where('email', 'clinic@gmail.com')->count());
         $this->assertSame('vet', $vet->fresh()->role->value);
+
+        Mail::assertSent(WelcomeMail::class, function (WelcomeMail $mail): bool {
+            return $mail->joined === false
+                && $mail->hasTo('clinic@gmail.com')
+                && $mail->envelope()->subject === 'Welcome back to FurShield';
+        });
     }
 
     public function test_a_bad_token_is_rejected_and_not_logged(): void
@@ -82,6 +98,7 @@ class GoogleSignInTest extends TestCase
             ->assertSessionHasErrors('credential');
 
         $this->assertGuest();
+        Mail::assertNothingSent();
         $this->assertStringNotContainsString($token, $this->logBlob);
         $this->assertStringNotContainsString('secret-person@gmail.com', $this->logBlob);
     }

@@ -45,7 +45,7 @@ return [
             'port' => filled(env('SMTP_PORT')) ? env('SMTP_PORT') : env('MAIL_PORT', 2525),
             'username' => filled(env('SMTP_USER')) ? env('SMTP_USER') : env('MAIL_USERNAME'),
             'password' => filled(env('SMTP_PASS')) ? env('SMTP_PASS') : env('MAIL_PASSWORD'),
-            'timeout' => null,
+            'timeout' => 15,
             'local_domain' => env('MAIL_EHLO_DOMAIN', parse_url((string) env('APP_URL', 'http://localhost'), PHP_URL_HOST)),
         ],
 

@@ -5,16 +5,25 @@ namespace Tests\Feature;
 use App\Enums\OrderStatus;
 use App\Enums\PaymentStatus;
 use App\Enums\UserRole;
+use App\Mail\OrderReceiptMail;
 use App\Models\Order;
 use App\Models\Payment;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Mail;
 use Tests\TestCase;
 
 class CheckoutTest extends TestCase
 {
     use RefreshDatabase;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        Mail::fake();
+    }
 
     public function test_checkout_page_shows_the_cart_and_an_empty_state(): void
     {
@@ -70,9 +79,29 @@ class CheckoutTest extends TestCase
         $this->assertSame(PaymentStatus::Refunded, $order->fresh()->payment_status);
         $this->assertSame(6, $product->fresh()->stock_quantity);
 
+        Mail::assertSent(OrderReceiptMail::class, function (OrderReceiptMail $mail) use ($order, $payment): bool {
+            $html = $mail->render();
+
+            return $mail->hasTo('owner@furshield.test')
+                && $mail->order->is($order)
+                && str_contains($html, $payment->reference)
+                && str_contains($html, 'ending 4242')
+                && ! str_contains($html, '4242 4242 4242 4242');
+        });
+
         $this->actingAs($owner)
             ->get(route('owner.orders.show', $order))
             ->assertOk()
+            ->assertSee($payment->reference)
+            ->assertSee('ending 4242')
+            ->assertSee('Download receipt')
+            ->assertSee('same receipt sent to owner@furshield.test')
+            ->assertDontSee('4242 4242 4242 4242');
+
+        $this->actingAs($owner)
+            ->get(route('owner.orders.receipt', $order))
+            ->assertOk()
+            ->assertHeader('content-disposition', 'attachment; filename="furshield-receipt-'.$payment->reference.'.html"')
             ->assertSee($payment->reference)
             ->assertSee('ending 4242')
             ->assertDontSee('4242 4242 4242 4242');
@@ -103,6 +132,7 @@ class CheckoutTest extends TestCase
         $this->assertSame(OrderStatus::Cart, Order::query()->first()->status);
         $this->assertSame(6, $product->fresh()->stock_quantity);
         $this->assertSame(0, Payment::query()->count());
+        Mail::assertNothingSent();
     }
 
     public function test_delivery_requires_an_address(): void
@@ -136,6 +166,10 @@ class CheckoutTest extends TestCase
 
         $this->actingAs($other)
             ->get(route('owner.orders.show', $order))
+            ->assertNotFound();
+
+        $this->actingAs($other)
+            ->get(route('owner.orders.receipt', $order))
             ->assertNotFound();
 
         $this->actingAs($other)

@@ -6,6 +6,7 @@ use App\Enums\UserRole;
 use App\Exceptions\GoogleSignInException;
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Services\GmailNoticeService;
 use App\Services\GoogleIdToken;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
@@ -16,7 +17,7 @@ use Illuminate\Validation\ValidationException;
 
 class GoogleSignInController extends Controller
 {
-    public function store(Request $request, GoogleIdToken $tokens): RedirectResponse
+    public function store(Request $request, GoogleIdToken $tokens, GmailNoticeService $mail): RedirectResponse
     {
         abort_unless(filled(config('services.google.client_id')), 404);
 
@@ -33,6 +34,7 @@ class GoogleSignInController extends Controller
         }
 
         $user = User::query()->where('email', $identity['email'])->first();
+        $joined = $user === null;
 
         if ($user === null) {
             $user = User::create([
@@ -50,6 +52,8 @@ class GoogleSignInController extends Controller
 
         Auth::login($user, true);
         $request->session()->regenerate();
+
+        $mail->welcome($user, $joined);
 
         return redirect()->intended(route($user->role->dashboardRoute(), absolute: false));
     }

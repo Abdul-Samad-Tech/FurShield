@@ -23,87 +23,22 @@
     <p class="mt-fs-md rounded-fs-md border border-danger/30 bg-danger-soft px-fs-sm py-fs-xs text-sm text-text" role="alert">{{ $message }}</p>
 @enderror
 
-<div class="mt-fs-md grid gap-fs-md lg:grid-cols-[minmax(0,1.4fr)_minmax(16rem,0.8fr)]">
-    <section class="rounded-fs-lg border border-border bg-surface-raised p-fs-md">
-        <h2 class="font-display text-2xl font-semibold text-text">Items</h2>
-        <ul class="mt-fs-sm divide-y divide-border">
-            @forelse ($order->items as $item)
-                <li class="flex items-start justify-between gap-fs-sm py-fs-sm">
-                    <div>
-                        <p class="font-medium text-text">{{ $item->product?->name ?? 'Removed product' }}</p>
-                        <p class="text-sm text-text-muted">{{ $item->quantity }} × {{ \App\Support\Furshield::money($item->price_each) }}</p>
-                    </div>
-                    <p class="text-sm font-medium text-text">{{ \App\Support\Furshield::money($item->price_each * $item->quantity) }}</p>
-                </li>
-            @empty
-                <li class="py-fs-sm text-sm text-text-muted">This order has no items.</li>
-            @endforelse
-        </ul>
-        <p class="mt-fs-sm font-display text-2xl font-semibold text-text">Total {{ \App\Support\Furshield::money($order->total_amount) }}</p>
-    </section>
+<div class="mt-fs-md flex flex-wrap items-center gap-fs-2xs">
+    <x-ui.button :href="route('owner.orders.receipt', $order)" variant="secondary">Download receipt</x-ui.button>
+    @if ($order->status === \App\Enums\OrderStatus::Placed)
+        <form method="POST" action="{{ route('owner.orders.cancel', $order) }}">
+            @csrf
+            <x-ui.button type="submit" variant="danger">Cancel order</x-ui.button>
+        </form>
+    @endif
+    <a href="{{ route('owner.cart.orders') }}" class="inline-flex min-h-11 items-center px-fs-sm text-sm font-medium text-success focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus">All orders</a>
+</div>
 
-    <div class="space-y-fs-md">
-        <section class="rounded-fs-lg border border-border bg-surface-raised p-fs-md">
-            <h2 class="font-display text-2xl font-semibold text-text">Payment</h2>
-            @if ($order->payment)
-                <dl class="mt-fs-sm grid gap-fs-xs text-sm">
-                    <div>
-                        <dt class="text-text-muted">Reference</dt>
-                        <dd class="font-medium text-text">{{ $order->payment->reference }}</dd>
-                    </div>
-                    <div>
-                        <dt class="text-text-muted">Method</dt>
-                        <dd class="font-medium text-text">
-                            {{ $order->payment->method->label() }}
-                            @if ($order->payment->card_last4)
-                                · {{ $order->payment->card_brand }} ending {{ $order->payment->card_last4 }}
-                            @endif
-                        </dd>
-                    </div>
-                    <div>
-                        <dt class="text-text-muted">Status</dt>
-                        <dd class="font-medium text-text">{{ $order->payment->status->label() }}</dd>
-                    </div>
-                </dl>
-            @else
-                <p class="mt-fs-sm text-sm text-text-muted">No payment record is attached to this order.</p>
-            @endif
-        </section>
+@if ($order->contact_email)
+    <p class="mt-fs-sm text-sm text-text-muted">This is the same receipt sent to {{ $order->contact_email }}.</p>
+@endif
 
-        <section class="rounded-fs-lg border border-border bg-surface-raised p-fs-md">
-            <h2 class="font-display text-2xl font-semibold text-text">Receipt details</h2>
-            <dl class="mt-fs-sm grid gap-fs-xs text-sm">
-                <div>
-                    <dt class="text-text-muted">Contact</dt>
-                    <dd class="font-medium text-text">{{ $order->contact_name }}</dd>
-                    <dd class="text-text">{{ $order->contact_phone }}</dd>
-                    <dd class="text-text">{{ $order->contact_email }}</dd>
-                </div>
-                <div>
-                    <dt class="text-text-muted">Receive</dt>
-                    <dd class="font-medium text-text">{{ $order->fulfillment?->label() ?? 'Not recorded' }}</dd>
-                    @if ($order->fulfillment === \App\Enums\FulfillmentMethod::Delivery)
-                        <dd class="text-text">{{ $order->address_line }}</dd>
-                        <dd class="text-text">{{ $order->city }}</dd>
-                    @endif
-                </div>
-                @if ($order->notes)
-                    <div>
-                        <dt class="text-text-muted">Note</dt>
-                        <dd class="text-text">{{ $order->notes }}</dd>
-                    </div>
-                @endif
-            </dl>
-        </section>
-
-        @if ($order->status === \App\Enums\OrderStatus::Placed)
-            <form method="POST" action="{{ route('owner.orders.cancel', $order) }}">
-                @csrf
-                <x-ui.button type="submit" variant="danger">Cancel order</x-ui.button>
-            </form>
-        @endif
-
-        <a href="{{ route('owner.cart.orders') }}" class="inline-flex min-h-11 items-center text-sm font-medium text-success focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus">All orders</a>
-    </div>
+<div class="mt-fs-md overflow-x-auto rounded-fs-lg border border-border p-fs-md" style="background:#ffffff;color:#102027;">
+    @include('receipts.partials.sheet')
 </div>
 @endsection
