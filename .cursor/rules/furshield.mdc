@@ -1,0 +1,25 @@
+---
+description: FurShield stack, UI, accessibility, and service-layer rules
+alwaysApply: true
+---
+
+# FurShield
+
+- Stack is Laravel 12, Blade, Alpine.js 3, Tailwind CSS 3, and Vite. Do not add React, Vue, or Inertia, and do not suggest migrating the stack.
+- Reuse Blade components in `resources/views/components/ui`. Do not repeat long utility-class strings in views.
+- Animate with the vanilla Motion library and CSS only. Every animation must respect `prefers-reduced-motion`.
+- Accessibility: visible focus states, labels bound to inputs, `aria-label` on icon-only buttons, and text contrast of at least 4.5:1.
+- Every screen needs loading (skeleton), empty, error, and success states.
+- Put business logic in `app/Services`, not in controllers or views. Wrap multi-step writes in `DB::transaction`.
+- Before any UI work, read `PRODUCT.md`, `DESIGN.md`, and `design-system/MASTER.md`.
+- After every task, run `npm run build` and `php artisan test`, then list the files you changed.
+
+```blade
+<x-ui.primary-button type="submit">Save pet</x-ui.primary-button>
+```
+
+```php
+DB::transaction(function () use ($owner, $data): void {
+    app(PetRecordService::class)->store($owner, $data);
+});
+```

@@ -1,0 +1,280 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    :root {
+        --fs-tide: #0e7c74;
+        --fs-tide-bright: #19a89b;
+        --fs-tide-deep: #0a5c56;
+        --fs-bloom: #e8a87c;
+        --fs-bloom-soft: #f6d7c0;
+        --fs-font-display: Syne, sans-serif;
+        --fs-font-sans: Outfit, sans-serif;
+
+        --fs-surface: 243 250 248;
+        --fs-surface-raised: 255 255 255;
+        --fs-surface-sunken: 215 238 232;
+        --fs-text: 16 32 39;
+        --fs-text-muted: 91 115 124;
+        --fs-text-inverse: 243 250 248;
+        --fs-border: 215 238 232;
+        --fs-border-strong: 183 212 206;
+        --fs-success: 14 124 116;
+        --fs-success-soft: 215 238 232;
+        --fs-warning: 154 84 22;
+        --fs-warning-soft: 246 215 192;
+        --fs-danger: 180 35 24;
+        --fs-danger-soft: 252 232 230;
+        --fs-focus: 14 124 116;
+
+        --fs-space-3xs: 0.25rem;
+        --fs-space-2xs: 0.5rem;
+        --fs-space-xs: 0.75rem;
+        --fs-space-sm: 1rem;
+        --fs-space-md: 1.5rem;
+        --fs-space-lg: 2rem;
+        --fs-space-xl: 3rem;
+        --fs-space-2xl: 4rem;
+        --fs-space-3xl: 6rem;
+
+        --fs-radius-xs: 0.5rem;
+        --fs-radius-sm: 0.75rem;
+        --fs-radius-md: 1rem;
+        --fs-radius-lg: 1.75rem;
+        --fs-radius-xl: 999px;
+
+        --fs-shadow-xs: 0 1px 2px rgba(16, 32, 39, 0.06);
+        --fs-shadow-sm: 0 4px 12px rgba(16, 32, 39, 0.06);
+        --fs-shadow-md: 0 12px 40px rgba(16, 32, 39, 0.08);
+        --fs-shadow-lg: 0 20px 60px rgba(14, 124, 116, 0.18);
+
+        --fs-duration-fast: 150ms;
+        --fs-duration-base: 300ms;
+        --fs-duration-slow: 500ms;
+        --fs-ease-standard: cubic-bezier(0.2, 0, 0, 1);
+        --fs-ease-enter: cubic-bezier(0.16, 1, 0.3, 1);
+        --fs-ease-exit: cubic-bezier(0.4, 0, 1, 1);
+    }
+
+    .dark {
+        --fs-surface: 7 24 28;
+        --fs-surface-raised: 16 32 39;
+        --fs-surface-sunken: 10 40 38;
+        --fs-text: 243 250 248;
+        --fs-text-muted: 197 213 210;
+        --fs-text-inverse: 16 32 39;
+        --fs-border: 46 74 72;
+        --fs-border-strong: 125 222 212;
+        --fs-success: 60 187 176;
+        --fs-success-soft: 14 58 54;
+        --fs-warning: 232 168 124;
+        --fs-warning-soft: 58 36 22;
+        --fs-danger: 244 160 152;
+        --fs-danger-soft: 62 24 22;
+        --fs-focus: 125 222 212;
+
+        --fs-shadow-md: 0 12px 40px rgba(0, 0, 0, 0.35);
+        --fs-shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.45);
+    }
+
+    [x-cloak] {
+        display: none !important;
+    }
+
+    html {
+        scroll-behavior: smooth;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+        [data-reveal]:not([data-revealed]) {
+            opacity: 0;
+            transition: none;
+        }
+
+        [data-reveal="left"]:not([data-revealed]) {
+            transform: translateX(16px);
+        }
+
+        [data-reveal="right"]:not([data-revealed]) {
+            transform: translateX(-16px);
+        }
+
+        [data-reveal="down"]:not([data-revealed]) {
+            transform: translateY(-16px);
+        }
+
+        [data-reveal="zoom"]:not([data-revealed]) {
+            transform: scale(0.96);
+        }
+
+        [data-reveal]:not([data-reveal="left"]):not([data-reveal="right"]):not([data-reveal="down"]):not([data-reveal="zoom"]):not([data-revealed]) {
+            transform: translateY(16px);
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        :root {
+            --fs-duration-fast: 0ms;
+            --fs-duration-base: 0ms;
+            --fs-duration-slow: 0ms;
+        }
+
+        html {
+            scroll-behavior: auto;
+        }
+
+        [data-reveal] {
+            opacity: 1;
+            transform: none;
+        }
+    }
+
+    body {
+        @apply bg-page-wash font-sans text-text antialiased;
+    }
+
+    ::selection {
+        @apply bg-tide/20 text-text;
+    }
+}
+
+@layer components {
+    /* Legacy aliases. Existing views keep these class names, so current screens stay as they are. */
+    .btn-primary {
+        @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-2xl bg-tide px-6 py-3 font-medium text-text-inverse shadow-glow motion-safe:transition motion-safe:duration-300 hover:bg-tide-bright motion-safe:hover:-translate-y-0.5;
+    }
+
+    .btn-secondary {
+        @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-2xl border border-white/80 bg-[#07181C]/80 px-6 py-3 font-semibold text-text-inverse shadow-soft backdrop-blur motion-safe:transition motion-safe:duration-300 hover:bg-[#07181C]/90;
+    }
+
+    .btn-ghost {
+        @apply inline-flex items-center justify-center gap-2 rounded-2xl border border-tide/20 bg-white/70 px-5 py-2.5 font-medium text-tide-deep transition duration-300 hover:border-tide hover:bg-white;
+    }
+
+    .surface {
+        @apply rounded-[1.75rem] border border-white/60 bg-white/70 shadow-soft backdrop-blur;
+    }
+
+    .section-title {
+        @apply text-balance font-display text-3xl font-semibold tracking-tight text-text md:text-4xl;
+    }
+
+    .section-copy {
+        @apply mt-3 max-w-[65ch] text-base leading-relaxed text-text-muted md:text-lg;
+    }
+
+    .field {
+        @apply w-full rounded-2xl border-mist-deep bg-white/80 text-ink shadow-none focus:border-tide focus:ring-tide/30;
+    }
+
+    .nav-link {
+        @apply text-sm font-semibold text-ink-soft transition hover:text-tide;
+    }
+
+    .nav-link[aria-current="page"] {
+        @apply text-tide;
+    }
+
+    .timeline-dot {
+        @apply absolute -left-[9px] top-1 h-4 w-4 rounded-full border-4 border-mist bg-tide;
+    }
+
+    .ui-spinner {
+        width: 1em;
+        height: 1em;
+        border: 2px solid currentColor;
+        border-right-color: transparent;
+        border-radius: 999px;
+        animation: fs-spin 500ms linear infinite;
+    }
+}
+
+@keyframes fs-spin {
+    to { transform: rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .ui-spinner {
+        animation: none;
+        border-right-color: currentColor;
+        opacity: 0.7;
+    }
+}
+
+[data-hero-canvas] {
+    opacity: 0;
+}
+
+[data-hero][data-hero-ready] [data-hero-visual] {
+    opacity: 0;
+}
+
+[data-hero][data-hero-ready] [data-hero-canvas] {
+    opacity: 1;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    [data-hero-canvas],
+    [data-hero][data-hero-ready] [data-hero-visual] {
+        transition: opacity 300ms cubic-bezier(0.2, 0, 0, 1);
+    }
+}
+
+@media (min-width: 1024px) {
+    .home-story-visual {
+        position: sticky;
+        top: 6rem;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .home-story-visual {
+        position: static;
+    }
+}
+
+.nearby-pin {
+    display: block;
+    width: 1.25rem;
+    height: 1.25rem;
+    border: 2px solid #ffffff;
+    border-radius: 999px;
+    background: #0e7c74;
+    box-shadow: 0 1px 2px rgba(16, 32, 39, 0.25);
+}
+
+.nearby-pin.is-selected {
+    width: 1.5rem;
+    height: 1.5rem;
+    background: #0a5c56;
+    box-shadow: 0 0 0 4px #e8a87c;
+}
+
+.leaflet-container {
+    z-index: 0;
+    width: 100%;
+    height: 100%;
+    background: rgb(var(--fs-surface-sunken));
+    font-family: Outfit, sans-serif;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .triage-result {
+        animation: triage-in 300ms cubic-bezier(0.2, 0, 0, 1);
+    }
+}
+
+@keyframes triage-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .assistant-panel,
+    .assistant-panel * {
+        transition: none !important;
+        animation: none !important;
+    }
+}
