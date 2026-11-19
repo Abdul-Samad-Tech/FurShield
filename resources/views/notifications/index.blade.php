@@ -25,7 +25,7 @@
                             <div class="mt-2 text-xs uppercase tracking-wide text-tide">{{ $notification->type }} · {{ $notification->created_at->diffForHumans() }}</div>
                         </div>
                         @unless ($notification->read_at)
-                            <span class="rounded-full bg-tide px-2 py-0.5 text-[10px] font-semibold uppercase text-white">New</span>
+                            <span class="rounded-full bg-tide px-2 py-0.5 text-[10px] font-semibold uppercase text-text-inverse">New</span>
                         @endunless
                     </div>
                 </button>

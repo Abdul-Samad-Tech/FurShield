@@ -5,11 +5,13 @@
     $kept = request()->only(['latitude', 'longitude', 'city']);
     $pins = collect($clinics)->filter(fn (array $clinic): bool => $clinic['latitude'] !== null && $clinic['longitude'] !== null)->values();
 @endphp
-<section class="mx-auto max-w-7xl px-4 pb-24 pt-28 sm:px-6 lg:px-8" data-nearby>
-    <div class="max-w-2xl">
-        <h1 class="font-display text-5xl font-bold text-text">Vets near me</h1>
-        <p class="mt-fs-xs text-text">Clinics on the map, closest first when you share where you are. If location is off, search by city.</p>
-    </div>
+<x-public.page-hero
+    title="Vets near me"
+    copy="Clinics on the map, closest first when you share where you are. If location is off, search by city."
+    image="images/catalog-clinician.jpg"
+    alt="A clinician in a white coat standing outdoors"
+/>
+<section class="mx-auto max-w-7xl px-4 pb-24 pt-8 sm:px-6 lg:px-8" data-nearby>
 
     <p class="mt-fs-sm text-sm text-text" role="status" data-nearby-status>
         @if ($located)
@@ -45,8 +47,8 @@
         <a href="{{ route('vets.index', array_merge($kept, request()->only(['specialization', 'rating']), $today ? [] : ['today' => 1])) }}" class="inline-flex min-h-11 items-center rounded-fs-xl border px-fs-sm text-sm font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus {{ $today ? 'border-success bg-success-soft text-text' : 'border-border-strong bg-surface-raised text-text' }}" aria-pressed="{{ $today ? 'true' : 'false' }}">Available today</a>
     </div>
 
-    <div class="mt-fs-md lg:grid lg:grid-cols-2 lg:items-start lg:gap-fs-md">
-        <div class="lg:sticky lg:top-28">
+    <div class="mt-fs-md grid gap-fs-md md:grid-cols-2 md:items-start">
+        <div class="md:sticky md:top-28">
             <div data-nearby-map class="relative isolate z-0 h-80 overflow-hidden rounded-fs-lg border border-border bg-surface-sunken md:h-[28rem]" role="region" aria-label="Map of veterinarians">
                 <div data-nearby-canvas class="absolute inset-0"></div>
                 <div data-nearby-placeholder class="absolute inset-0 z-10 grid place-items-center bg-surface-sunken p-fs-md text-center">
@@ -61,7 +63,7 @@
             <script type="application/json" id="nearby-pins">@json($pins)</script>
         </div>
 
-        <div class="mt-fs-md grid gap-fs-sm lg:mt-0">
+        <div class="mt-fs-md grid gap-fs-sm md:mt-0">
             @forelse ($clinics as $clinic)
                 <article id="vet-{{ $clinic['id'] }}" data-vet-id="{{ $clinic['id'] }}" class="rounded-fs-lg border border-border bg-surface-raised p-fs-md text-text data-[selected=true]:ring-2 data-[selected=true]:ring-focus">
                     <div class="flex flex-wrap items-start justify-between gap-fs-sm">

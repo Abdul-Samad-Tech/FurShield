@@ -19,7 +19,7 @@
             <article class="rounded-fs-lg border border-border bg-surface-raised p-fs-sm">
                 <div class="flex flex-wrap items-start gap-fs-sm">
                     <a :href="item.url" class="shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus">
-                        <img :src="item.image" :alt="item.name" class="size-16 rounded-fs-md object-cover">
+                        <img :src="item.image" :alt="item.name" class="size-16 rounded-fs-md bg-surface-sunken object-contain object-center">
                     </a>
                     <div class="min-w-0 flex-1">
                         <a :href="item.url" class="font-display text-xl font-semibold text-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus" x-text="item.name"></a>

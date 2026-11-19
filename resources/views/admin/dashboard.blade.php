@@ -36,7 +36,7 @@
     </div>
 </div>
 
-<div class="mt-fs-md grid gap-fs-sm sm:grid-cols-2 xl:grid-cols-4" data-reveal>
+<div class="mt-fs-md grid gap-fs-sm sm:grid-cols-2 lg:grid-cols-4" data-reveal>
     @foreach ($kpis as $kpi)
         <x-ui.stat-card
             :label="$kpi['label']"
@@ -53,7 +53,7 @@
     @endforeach
 </div>
 
-<div class="mt-fs-md grid gap-fs-sm xl:grid-cols-2" data-admin-charts data-currency="{{ \App\Support\Furshield::currencySymbol() }}">
+<div class="mt-fs-md grid gap-fs-sm lg:grid-cols-2" data-admin-charts data-currency="{{ \App\Support\Furshield::currencySymbol() }}">
     <x-ui.card>
         <h2 class="font-display text-2xl font-semibold text-text">Registrations by role</h2>
         <p class="mt-fs-3xs text-sm text-text-muted">New accounts in each of the last 8 weeks.</p>
@@ -186,7 +186,7 @@
     <script type="application/json" id="admin-charts">@json($charts)</script>
 </div>
 
-<div class="mt-fs-md grid gap-fs-sm xl:grid-cols-[0.8fr_1.2fr]">
+<div class="mt-fs-md grid gap-fs-sm lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)]">
     <x-ui.card>
         <h2 class="font-display text-2xl font-semibold text-text">Recent activity</h2>
         <p class="mt-fs-3xs text-sm text-text-muted">The latest accounts, visits, orders, listings, and interest.</p>

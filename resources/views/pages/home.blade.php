@@ -3,51 +3,21 @@
 @section('title', 'Home')
 
 @section('content')
-<section data-hero class="relative min-h-screen overflow-hidden bg-hero-mesh text-white">
-    <div class="absolute inset-0">
-        @php $heroPhoto = \App\Support\DummyImages::describe('images/catalog-couch.jpg', 'care', 1); @endphp
-        <img
-            data-hero-visual
-            src="{{ $heroPhoto['url'] }}"
-            width="{{ $heroPhoto['width'] }}"
-            height="{{ $heroPhoto['height'] }}"
-            alt="{{ $heroPhoto['alt'] }}"
-            class="h-full w-full object-cover opacity-45"
-            fetchpriority="high"
-            decoding="async"
-        >
-        <canvas data-hero-canvas class="pointer-events-none absolute inset-0 h-full w-full" aria-hidden="true"></canvas>
-        <div class="absolute inset-0 bg-gradient-to-r from-[#07181C]/95 via-[#0A2E2C]/75 to-transparent"></div>
-        <div class="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-[#07181C]/85 to-transparent"></div>
-        <div class="absolute inset-0 bg-[radial-gradient(circle_at_70%_40%,rgba(25,168,155,0.25),transparent_40%)]"></div>
-    </div>
-
-    <div class="relative mx-auto flex min-h-screen max-w-7xl flex-col justify-center px-4 pb-24 pt-32 sm:px-6 lg:px-8">
-        <h1 data-hero-brand class="max-w-[12ch] text-balance font-display text-5xl font-extrabold leading-[0.95] tracking-tight sm:text-6xl md:text-7xl lg:text-8xl">
-            FurShield
-        </h1>
-        <p data-hero-copy class="mt-6 max-w-[65ch] text-lg leading-relaxed text-mist md:text-xl">
-            Every paw and wing deserves a shield of love — manage health, book care, shop essentials, and find forever homes in one calm place.
-        </p>
-        <div data-hero-cta class="mt-10 flex flex-wrap gap-4">
-            <a href="{{ route('register') }}" class="btn-primary" data-magnetic>Start Protecting</a>
-            <a href="{{ route('adopt.index') }}" class="btn-secondary" data-magnetic>Meet Adoptable Pets</a>
-        </div>
-    </div>
-
-    <div class="pointer-events-none absolute bottom-8 left-1/2 -translate-x-1/2 text-white/70" aria-hidden="true">
-        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M19 9l-7 7-7-7"/></svg>
-    </div>
-</section>
-
 @php
     $recordPhoto = \App\Support\DummyImages::describe(null, 'pet', 0);
+    $visitPhoto = \App\Support\DummyImages::describe(null, 'care', 2);
     $shopPhoto = \App\Support\DummyImages::describe(null, 'product', 0);
     $adoptPhoto = \App\Support\DummyImages::describe(null, 'adoption', 0);
-    $carePhoto = \App\Support\DummyImages::describe(null, 'care', 0);
     $ownerPhoto = \App\Support\DummyImages::describe(null, 'role', 0);
     $vetPhoto = \App\Support\DummyImages::describe(null, 'role', 1);
     $shelterPhoto = \App\Support\DummyImages::describe(null, 'role', 2);
+    $cardClass = 'group flex h-full flex-col overflow-hidden rounded-fs-lg border border-border bg-surface-raised focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus focus-visible:ring-offset-2 focus-visible:ring-offset-surface motion-safe:transition motion-safe:duration-fs-fast motion-safe:ease-fs-standard hover:border-border-strong';
+    $jobs = [
+        ['register', 'One record for each pet', 'Identity, health notes, and documents stay together.', $recordPhoto],
+        ['register', 'Book a visit', 'Request a time. The veterinarian approves it, reschedules it, or logs the treatment.', $visitPhoto],
+        ['products.index', 'Shop essentials', 'Food, grooming, toys, and supplies. Checkout keeps pickup or delivery with the order.', $shopPhoto],
+        ['adopt.index', 'Animals waiting', 'Shelters list pets with health status. An owner can send interest from the listing.', $adoptPhoto],
+    ];
     $faqs = [
         ['pay', 'Can I pay inside FurShield?', 'Yes. Checkout accepts a card or pay on collection. The full card number is not stored.'],
         ['delivery', 'Will a product be delivered?', 'Checkout can record pickup or delivery and keeps the address with the order. FurShield does not run a courier.'],
@@ -58,198 +28,217 @@
     ];
 @endphp
 
-<section class="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
+<section data-hero class="relative isolate mx-auto mt-24 flex h-[calc(100svh-7.5rem)] min-h-[560px] w-[calc(100%-1rem)] max-h-[760px] max-w-[90rem] flex-col overflow-hidden rounded-fs-lg bg-[#02181e] shadow-fs-lg sm:w-[calc(100%-1.5rem)]">
+    <img
+        src="{{ asset('images/hero-scene.jpg') }}"
+        width="1920"
+        height="1080"
+        alt="A veterinarian with a golden retriever and a kitten in a clinic"
+        class="absolute inset-0 h-full w-full object-cover object-center"
+        fetchpriority="high"
+        decoding="async"
+    >
+    <div class="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,#02181e_0%,rgba(2,24,30,0.88)_46%,rgba(2,24,30,0.45)_100%)] lg:bg-[linear-gradient(90deg,#02181e_0%,rgba(2,24,30,0.92)_34%,rgba(2,24,30,0.55)_52%,rgba(2,24,30,0.12)_68%,transparent_78%)]"></div>
+    <div class="pointer-events-none absolute bottom-0 left-0 h-24 w-[42%] rounded-[100%] bg-[#14b8aa]/30 blur-2xl"></div>
+
+    <div class="relative flex w-full flex-1 items-center justify-start px-6 py-10 sm:px-10 lg:px-16">
+        <div class="max-w-xl text-left">
+            <p class="inline-flex h-8 items-center gap-2 rounded-full border border-[#2ee6d6]/80 bg-[#02181e]/40 px-3 text-[13px] font-medium text-[#d9fffb]">
+                <x-ui.icon name="heart" size="sm" class="text-[#2ee6d6]" />
+                Healthy Pets. Happier Lives.
+            </p>
+            <h1 class="mt-5 font-hero text-[clamp(3.25rem,6.4vw,6.25rem)] font-extrabold italic leading-[0.9] tracking-tight text-white">
+                <span>Fur</span><span class="text-[#2ee6d6]">Shield</span>
+            </h1>
+            <p class="mt-4 font-display text-2xl font-bold leading-tight tracking-tight text-white sm:text-[1.75rem]">
+                Complete <span class="relative inline-block text-[#2ee6d6]">Pet Care<svg class="absolute -bottom-1 left-0 h-2 w-full text-[#2ee6d6]" viewBox="0 0 140 8" fill="none" aria-hidden="true"><path d="M2 5c28-4 52-4 78-1s40 3 58 0" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg></span>, All in One Place
+            </p>
+            <p class="mt-4 max-w-[40ch] text-base leading-7 text-white/90">Every paw and wing deserves a shield of love — manage health, book care, shop essentials and find forever homes in one calm place.</p>
+            <div class="mt-6 flex flex-wrap items-center justify-start gap-3">
+                <a href="{{ route('register') }}" class="inline-flex h-12 items-center gap-2 rounded-full bg-[#2ee6d6] px-5 text-[15px] font-semibold text-[#04222a] shadow-[0_10px_30px_rgba(46,230,214,0.35)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">
+                    <x-ui.icon name="paw-print" size="sm" />
+                    Start Protecting
+                    <x-ui.icon name="chevron-right" size="sm" />
+                </a>
+                <a href="{{ route('products.index') }}" class="inline-flex h-12 items-center gap-2 rounded-full border border-white/80 px-5 text-[15px] font-semibold text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">
+                    <x-ui.icon name="shopping-bag" size="sm" />
+                    Shop Pet Essentials
+                </a>
+            </div>
+            <ul class="mt-6 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-white/85">
+                <li class="inline-flex items-center gap-2"><x-ui.icon name="shield" size="sm" /> Trusted Care</li>
+                <li class="hidden h-4 w-px bg-white/30 sm:block" aria-hidden="true"></li>
+                <li class="inline-flex items-center gap-2"><x-ui.icon name="heart" size="sm" /> Expert Vets</li>
+                <li class="hidden h-4 w-px bg-white/30 sm:block" aria-hidden="true"></li>
+                <li class="inline-flex items-center gap-2"><x-ui.icon name="house" size="sm" /> Adopt &amp; Love</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<section class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8" aria-labelledby="jobs-heading">
     <div class="max-w-2xl">
-        <h2 class="section-title">The record holds the rest of the work</h2>
-        <p class="section-copy">Health, appointments, shopping, and adoption stay attached to the pet the owner already keeps.</p>
+        <h2 id="jobs-heading" class="font-display text-3xl font-semibold tracking-tight text-text">What stays on the record</h2>
+        <p class="mt-3 max-w-[52ch] text-base leading-relaxed text-text">Appointments, shopping, and adoption are not separate products. Each one opens from the pet the owner already keeps.</p>
     </div>
+    <div class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        @foreach ($jobs as [$route, $title, $copy, $photo])
+            <a href="{{ route($route) }}" class="{{ $cardClass }}">
+                <img src="{{ $photo['url'] }}" width="{{ $photo['width'] }}" height="{{ $photo['height'] }}" alt="" class="h-40 w-full bg-surface-sunken object-contain object-center" @if (! $loop->first) loading="lazy" @endif decoding="async">
+                <div class="flex flex-1 flex-col p-5">
+                    <h3 class="font-display text-xl font-semibold text-text group-hover:underline">{{ $title }}</h3>
+                    <p class="mt-2 text-sm leading-relaxed text-text">{{ $copy }}</p>
+                </div>
+            </a>
+        @endforeach
+    </div>
+    <a href="{{ route('care.index') }}" class="mt-4 flex items-center justify-between gap-4 rounded-fs-lg border border-border bg-surface-raised px-5 py-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus focus-visible:ring-offset-2">
+        <span>
+            <span class="block font-display text-lg font-semibold text-text">Care library</span>
+            <span class="mt-1 block text-sm leading-relaxed text-text">Feeding, hygiene, exercise, and training, written for the household that holds the record.</span>
+        </span>
+        <x-ui.icon name="chevron-right" class="shrink-0 text-success" />
+    </a>
+</section>
 
-    <div class="mt-14 grid gap-4 md:grid-cols-6" data-reveal>
-        <a href="{{ route('register') }}" class="flex flex-col overflow-hidden rounded-fs-lg bg-tide-deep text-text-inverse focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus focus-visible:ring-offset-2 focus-visible:ring-offset-surface md:col-span-4 md:row-span-2">
-            <img src="{{ $recordPhoto['url'] }}" width="{{ $recordPhoto['width'] }}" height="{{ $recordPhoto['height'] }}" alt="{{ $recordPhoto['alt'] }}" class="h-64 w-full object-cover md:h-80" decoding="async">
-            <div class="flex flex-1 flex-col justify-end p-8">
-                <h3 class="font-display text-3xl font-semibold">One record for each pet</h3>
-                <p class="mt-3 max-w-xl text-lg text-text-inverse">Identity, health notes, and documents stay together. Veterinarians and shelters work from that same record.</p>
-            </div>
-        </a>
-        <a href="{{ route('register') }}" class="flex flex-col justify-between rounded-fs-lg border border-border bg-surface-raised p-8 text-text shadow-fs-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus focus-visible:ring-offset-2 md:col-span-2">
-            <x-ui.icon name="calendar" size="lg" />
-            <div class="mt-10">
-                <h3 class="font-display text-2xl font-semibold">Book a visit</h3>
-                <p class="mt-3">Request a time. The veterinarian approves, reschedules, or completes it, then logs the treatment.</p>
-            </div>
-        </a>
-        <a href="{{ route('products.index') }}" class="overflow-hidden rounded-fs-lg border border-border bg-surface-raised text-text shadow-fs-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus focus-visible:ring-offset-2 md:col-span-2">
-            <img src="{{ $shopPhoto['url'] }}" width="{{ $shopPhoto['width'] }}" height="{{ $shopPhoto['height'] }}" alt="{{ $shopPhoto['alt'] }}" class="h-36 w-full object-cover" loading="lazy" decoding="async">
-            <div class="p-8">
-                <h3 class="font-display text-2xl font-semibold">Shop essentials</h3>
-                <p class="mt-3">Food, grooming, toys, and care supplies go in a cart. Checkout records payment and whether the order is picked up or delivered.</p>
-            </div>
-        </a>
-        <a href="{{ route('adopt.index') }}" class="overflow-hidden rounded-fs-lg border border-border bg-surface-raised text-text shadow-fs-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus focus-visible:ring-offset-2 md:col-span-3">
-            <img src="{{ $adoptPhoto['url'] }}" width="{{ $adoptPhoto['width'] }}" height="{{ $adoptPhoto['height'] }}" alt="{{ $adoptPhoto['alt'] }}" class="h-52 w-full object-cover" loading="lazy" decoding="async">
-            <div class="p-8">
-                <h3 class="font-display text-2xl font-semibold">Animals waiting for a home</h3>
-                <p class="mt-3">Shelters list pets with health status and care history. An owner can express interest from that listing.</p>
-            </div>
-        </a>
-        <a href="{{ route('care.index') }}" class="overflow-hidden rounded-fs-lg border border-border bg-surface-raised text-text shadow-fs-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus focus-visible:ring-offset-2 md:col-span-3">
-            <img src="{{ $carePhoto['url'] }}" width="{{ $carePhoto['width'] }}" height="{{ $carePhoto['height'] }}" alt="{{ $carePhoto['alt'] }}" class="h-52 w-full object-cover" loading="lazy" decoding="async">
-            <div class="p-8">
-                <h3 class="font-display text-2xl font-semibold">Care written for households</h3>
-                <p class="mt-3">Feeding, hygiene, exercise, and training articles sit next to the record, not in a separate product.</p>
-            </div>
-        </a>
+<section aria-labelledby="roles-heading">
+    <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+        <h2 id="roles-heading" class="font-display text-3xl font-semibold tracking-tight text-text">Three people, one record</h2>
+        <div class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <article class="flex h-full flex-col rounded-fs-lg border border-border bg-surface-raised p-4 shadow-fs-sm">
+                <img src="{{ $ownerPhoto['url'] }}" width="{{ $ownerPhoto['width'] }}" height="{{ $ownerPhoto['height'] }}" alt="{{ $ownerPhoto['alt'] }}" class="aspect-[4/3] w-full rounded-fs-lg bg-surface-sunken object-contain object-center" loading="lazy" decoding="async">
+                <h3 class="mt-5 font-display text-2xl font-semibold text-text">Owners hold the record</h3>
+                <p class="mt-2 flex-1 text-base leading-relaxed text-text">Keep a profile for every pet, upload health and insurance documents, book or cancel a visit, and shop from the same account.</p>
+                <div class="mt-5">
+                    <x-ui.button href="{{ route('register') }}">Open a record</x-ui.button>
+                </div>
+            </article>
+            <article class="flex h-full flex-col rounded-fs-lg border border-border bg-surface-raised p-4 shadow-fs-sm">
+                <img src="{{ $vetPhoto['url'] }}" width="{{ $vetPhoto['width'] }}" height="{{ $vetPhoto['height'] }}" alt="{{ $vetPhoto['alt'] }}" class="aspect-[4/3] w-full rounded-fs-lg bg-surface-sunken object-contain object-center" loading="lazy" decoding="async">
+                <h3 class="mt-5 font-display text-2xl font-semibold text-text">Veterinarians answer from it</h3>
+                <p class="mt-2 flex-1 text-base leading-relaxed text-text">Review the history the owner already kept. Approve, reschedule, or complete the appointment, then log the treatment.</p>
+                <div class="mt-5">
+                    <x-ui.button href="{{ route('register') }}">Join as a veterinarian</x-ui.button>
+                </div>
+            </article>
+            <article class="flex h-full flex-col rounded-fs-lg border border-border bg-surface-raised p-4 shadow-fs-sm sm:col-span-2 lg:col-span-1">
+                <img src="{{ $shelterPhoto['url'] }}" width="{{ $shelterPhoto['width'] }}" height="{{ $shelterPhoto['height'] }}" alt="{{ $shelterPhoto['alt'] }}" class="aspect-[4/3] w-full rounded-fs-lg bg-surface-sunken object-contain object-center" loading="lazy" decoding="async">
+                <h3 class="mt-5 font-display text-2xl font-semibold text-text">Shelters list from it</h3>
+                <p class="mt-2 flex-1 text-base leading-relaxed text-text">Publish an adoptable pet with care logs and health status, then respond when someone expresses interest.</p>
+                <div class="mt-5">
+                    <x-ui.button href="{{ route('register') }}">Join as a shelter</x-ui.button>
+                </div>
+            </article>
+        </div>
     </div>
 </section>
 
-<section class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-    <div class="max-w-2xl pb-8">
-        <h2 class="section-title">Three roles, one record</h2>
-        <p class="section-copy">The picture stays beside that role while you read.</p>
-    </div>
-
-    <article class="grid items-center gap-10 py-16 lg:min-h-screen lg:grid-cols-2">
-        <div class="home-story-visual">
-            <img src="{{ $ownerPhoto['url'] }}" width="{{ $ownerPhoto['width'] }}" height="{{ $ownerPhoto['height'] }}" alt="{{ $ownerPhoto['alt'] }}" class="aspect-[4/5] max-h-[70vh] w-full rounded-fs-lg object-cover" loading="lazy" decoding="async">
+<section class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8" aria-label="Live counts">
+    <div class="grid overflow-hidden rounded-fs-lg border border-border bg-surface-raised shadow-fs-sm sm:grid-cols-3">
+        <div class="px-4 py-10 sm:border-r sm:border-border sm:px-6 lg:px-8">
+            <p class="font-display text-3xl font-semibold tabular-nums text-text">{{ $productCount }}</p>
+            <p class="mt-1 text-sm text-text">Products in the catalog</p>
         </div>
-        <div>
-            <h3 class="font-display text-4xl font-semibold text-text md:text-5xl">Owners hold the record</h3>
-            <p class="mt-6 max-w-xl text-lg text-text">Keep a profile for every pet, upload health and insurance documents, book or cancel a visit, and shop from the same account.</p>
-            <div class="mt-8">
-                <x-ui.button href="{{ route('register') }}">Open a record</x-ui.button>
-            </div>
+        <div class="border-t border-border px-4 py-10 sm:border-r sm:border-t-0 sm:px-6 lg:px-8">
+            <p class="font-display text-3xl font-semibold tabular-nums text-text">{{ $vetCount }}</p>
+            <p class="mt-1 text-sm text-text">Veterinarians on FurShield</p>
         </div>
-    </article>
-
-    <article class="grid items-center gap-10 py-16 lg:min-h-screen lg:grid-cols-2">
-        <div class="home-story-visual">
-            <img src="{{ $vetPhoto['url'] }}" width="{{ $vetPhoto['width'] }}" height="{{ $vetPhoto['height'] }}" alt="{{ $vetPhoto['alt'] }}" class="aspect-[4/5] max-h-[70vh] w-full rounded-fs-lg object-cover" loading="lazy" decoding="async">
-        </div>
-        <div>
-            <h3 class="font-display text-4xl font-semibold text-text md:text-5xl">Veterinarians answer from it</h3>
-            <p class="mt-6 max-w-xl text-lg text-text">Review the history the owner already kept. Approve, reschedule, or complete the appointment, then log the treatment.</p>
-            <div class="mt-8">
-                <x-ui.button href="{{ route('register') }}" variant="secondary">Join as a veterinarian</x-ui.button>
-            </div>
-        </div>
-    </article>
-
-    <article class="grid items-center gap-10 py-16 lg:min-h-screen lg:grid-cols-2">
-        <div class="home-story-visual">
-            <img src="{{ $shelterPhoto['url'] }}" width="{{ $shelterPhoto['width'] }}" height="{{ $shelterPhoto['height'] }}" alt="{{ $shelterPhoto['alt'] }}" class="aspect-[4/5] max-h-[70vh] w-full rounded-fs-lg object-cover" loading="lazy" decoding="async">
-        </div>
-        <div>
-            <h3 class="font-display text-4xl font-semibold text-text md:text-5xl">Shelters list from the same place</h3>
-            <p class="mt-6 max-w-xl text-lg text-text">Publish an adoptable pet with care logs and health status, then respond when someone expresses interest.</p>
-            <div class="mt-8">
-                <x-ui.button href="{{ route('register') }}" variant="secondary">Join as a shelter</x-ui.button>
-            </div>
-        </div>
-    </article>
-</section>
-
-<section class="bg-tide-deep text-text-inverse" aria-label="Live counts">
-    <div class="mx-auto grid max-w-7xl gap-10 px-4 py-20 sm:px-6 md:grid-cols-3 lg:px-8">
-        <div>
-            <div class="font-display text-5xl font-bold tabular-nums" data-count="{{ $productCount }}">{{ $productCount }}</div>
-            <p class="mt-3 text-lg text-text-inverse">Products in the catalog</p>
-        </div>
-        <div>
-            <div class="font-display text-5xl font-bold tabular-nums" data-count="{{ $vetCount }}">{{ $vetCount }}</div>
-            <p class="mt-3 text-lg text-text-inverse">Veterinarians on FurShield</p>
-        </div>
-        <div>
-            <div class="font-display text-5xl font-bold tabular-nums" data-count="{{ $adoptableCount }}">{{ $adoptableCount }}</div>
-            <p class="mt-3 text-lg text-text-inverse">Animals listed for adoption</p>
+        <div class="border-t border-border px-4 py-10 sm:border-t-0 sm:px-6 lg:px-8">
+            <p class="font-display text-3xl font-semibold tabular-nums text-text">{{ $adoptableCount }}</p>
+            <p class="mt-1 text-sm text-text">Animals listed for adoption</p>
         </div>
     </div>
     @if ($productCount === 0 && $vetCount === 0 && $adoptableCount === 0)
-        <p class="mx-auto max-w-7xl px-4 pb-10 text-lg text-text-inverse sm:px-6 lg:px-8">The catalog, clinic list, and adoption board are empty right now.</p>
+        <p class="mx-auto max-w-7xl px-4 pb-8 text-sm text-text sm:px-6 lg:px-8">The catalog, clinic list, and adoption board are empty right now.</p>
     @endif
 </section>
 
-<section class="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
-    <h2 class="section-title">How an owner moves through it</h2>
-    <ol class="mt-14 grid gap-12 md:grid-cols-3">
-        <li>
-            <p class="font-display text-5xl font-semibold text-tide">1</p>
-            <h3 class="mt-4 font-display text-2xl font-semibold text-text">Create the record</h3>
-            <p class="mt-3 text-text">Register, then add each pet. The record is the place health notes and documents live.</p>
+<section class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8" aria-labelledby="path-heading">
+    <h2 id="path-heading" class="font-display text-3xl font-semibold tracking-tight text-text">How an owner moves through it</h2>
+    <ol class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <li class="rounded-fs-lg border border-border bg-surface-raised p-5 shadow-fs-sm sm:col-span-1">
+            <p class="text-sm font-medium text-success">01</p>
+            <h3 class="mt-2 font-display text-xl font-semibold text-text">Create the record</h3>
+            <p class="mt-2 text-sm leading-relaxed text-text">Register, then add each pet. The record is where health notes and documents live.</p>
         </li>
-        <li>
-            <p class="font-display text-5xl font-semibold text-tide">2</p>
-            <h3 class="mt-4 font-display text-2xl font-semibold text-text">Book care and fill a cart</h3>
-            <p class="mt-3 text-text">Request a veterinarian from that record, then check out supplies for pickup or delivery. Card numbers are not stored.</p>
+        <li class="rounded-fs-lg border border-border bg-surface-raised p-5 shadow-fs-sm">
+            <p class="text-sm font-medium text-success">02</p>
+            <h3 class="mt-2 font-display text-xl font-semibold text-text">Book care and fill a cart</h3>
+            <p class="mt-2 text-sm leading-relaxed text-text">Request a veterinarian from that record, then check out supplies for pickup or delivery. Card numbers are not stored.</p>
         </li>
-        <li>
-            <p class="font-display text-5xl font-semibold text-tide">3</p>
-            <h3 class="mt-4 font-display text-2xl font-semibold text-text">Follow an adoption</h3>
-            <p class="mt-3 text-text">Read a shelter listing, including health status, and send interest. The shelter answers from the same board.</p>
+        <li class="rounded-fs-lg border border-border bg-surface-raised p-5 shadow-fs-sm sm:col-span-2 lg:col-span-1">
+            <p class="text-sm font-medium text-success">03</p>
+            <h3 class="mt-2 font-display text-xl font-semibold text-text">Follow an adoption</h3>
+            <p class="mt-2 text-sm leading-relaxed text-text">Read a shelter listing, including health status, and send interest. The shelter answers from the same board.</p>
         </li>
     </ol>
 </section>
 
-<section class="bg-bloom text-text">
-    <div class="mx-auto flex max-w-7xl flex-col items-start justify-between gap-6 px-4 py-10 sm:px-6 md:flex-row md:items-center lg:px-8">
-        <p class="max-w-3xl font-display text-3xl font-semibold leading-tight md:text-4xl">Pet in trouble? Check symptoms in 60 seconds</p>
+<section class="mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:px-8">
+    <div class="flex flex-col items-start gap-4 rounded-fs-lg border border-border bg-surface-sunken px-5 py-5 sm:flex-row sm:items-center sm:gap-8 sm:px-6">
+        <p class="max-w-xl font-display text-2xl font-semibold leading-tight text-text">Pet in trouble? Check symptoms in 60 seconds.</p>
         <x-ui.button :href="route('triage')">Check symptoms</x-ui.button>
     </div>
 </section>
 
-<section class="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
-    <h2 class="section-title max-w-3xl">Sample voices, not real customers</h2>
-    <p class="section-copy">These lines show how the three roles talk about the record. They are illustrations. Nobody said them.</p>
-    <div class="mt-14 grid gap-12 lg:grid-cols-3">
-        <blockquote class="border-t border-border pt-8">
-            <p class="font-display text-2xl font-semibold leading-snug text-text">I keep each pet’s visits and documents in one record, then book the next appointment from that same page.</p>
-            <footer class="mt-6 text-text">Sample owner</footer>
+<section class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8" aria-labelledby="voices-heading">
+    <h2 id="voices-heading" class="max-w-2xl font-display text-3xl font-semibold tracking-tight text-text">Sample lines, not customer quotes</h2>
+    <p class="mt-3 max-w-[52ch] text-base leading-relaxed text-text">These show how the three roles talk about the record. Nobody said them.</p>
+    <div class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <blockquote class="rounded-fs-lg border border-border bg-surface-raised p-5 shadow-fs-sm">
+            <p class="text-base leading-relaxed text-text">I keep each pet’s visits and documents in one record, then book the next appointment from that same page.</p>
+            <footer class="mt-3 text-sm font-medium text-text">Sample owner</footer>
         </blockquote>
-        <blockquote class="border-t border-border pt-8">
-            <p class="font-display text-2xl font-semibold leading-snug text-text">I open the record the owner already keeps, then approve the visit and log what I treated.</p>
-            <footer class="mt-6 text-text">Sample veterinarian</footer>
+        <blockquote class="rounded-fs-lg border border-border bg-surface-raised p-5 shadow-fs-sm">
+            <p class="text-base leading-relaxed text-text">I open the record the owner already keeps, then approve the visit and log what I treated.</p>
+            <footer class="mt-3 text-sm font-medium text-text">Sample veterinarian</footer>
         </blockquote>
-        <blockquote class="border-t border-border pt-8">
-            <p class="font-display text-2xl font-semibold leading-snug text-text">I list an animal with the care we have already given, and read adoption interest in the same place.</p>
-            <footer class="mt-6 text-text">Sample shelter</footer>
+        <blockquote class="rounded-fs-lg border border-border bg-surface-raised p-5 shadow-fs-sm sm:col-span-2 lg:col-span-1">
+            <p class="text-base leading-relaxed text-text">I list an animal with the care we have already given, and read adoption interest in the same place.</p>
+            <footer class="mt-3 text-sm font-medium text-text">Sample shelter</footer>
         </blockquote>
     </div>
 </section>
 
-<section class="mx-auto max-w-3xl px-4 pb-24 sm:px-6 lg:px-8" x-data="{ open: null }">
-    <h2 class="section-title">Questions before you start a record</h2>
-    <div class="mt-10 border-t border-border">
+<section class="mx-auto max-w-3xl px-4 pb-16 sm:px-6 lg:px-8" x-data="{ open: null }" aria-labelledby="faq-heading">
+    <div class="rounded-fs-lg border border-border bg-surface-raised px-5 py-6 shadow-fs-sm sm:px-6">
+    <h2 id="faq-heading" class="font-display text-3xl font-semibold tracking-tight text-text">Questions before you start a record</h2>
+    <div class="mt-4">
         @foreach ($faqs as [$id, $question, $answer])
             <div class="border-b border-border">
                 <h3>
                     <button
                         type="button"
-                        class="flex w-full items-center justify-between gap-6 py-5 text-left font-display text-xl font-semibold text-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus"
+                        class="flex w-full items-center justify-between gap-4 py-4 text-left font-display text-lg font-semibold text-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus"
                         @click="open = open === '{{ $id }}' ? null : '{{ $id }}'"
                         :aria-expanded="(open === '{{ $id }}').toString()"
                         aria-controls="faq-{{ $id }}"
                     >
                         <span>{{ $question }}</span>
-                        <span class="motion-safe:transition motion-safe:duration-300" :class="open === '{{ $id }}' ? 'rotate-180' : ''">
-                            <x-ui.icon name="chevron-down" />
+                        <span class="grid size-11 shrink-0 place-items-center rounded-full bg-surface-sunken text-text motion-safe:transition motion-safe:duration-300" :class="open === '{{ $id }}' ? 'rotate-180' : ''">
+                            <x-ui.icon name="chevron-down" size="lg" class="stroke-[2.5]" />
                         </span>
                     </button>
                 </h3>
                 <div id="faq-{{ $id }}" role="region" x-show="open === '{{ $id }}'" x-cloak>
-                    <p class="max-w-2xl pb-5 text-text">{{ $answer }}</p>
+                    <p class="max-w-2xl pb-4 text-base leading-relaxed text-text">{{ $answer }}</p>
                 </div>
             </div>
         @endforeach
     </div>
+    </div>
 </section>
 
-<section class="bg-tide-deep text-text-inverse">
-    <div class="mx-auto flex max-w-7xl flex-col items-start gap-8 px-4 py-24 sm:px-6 lg:px-8">
-        <h2 class="max-w-3xl font-display text-4xl font-semibold leading-tight md:text-6xl">Start the record. The rest of the care follows it.</h2>
-        <p class="max-w-xl text-lg text-text-inverse">Register as an owner, veterinarian, or shelter. The pet stays the shared object.</p>
-        <div class="flex flex-wrap gap-4">
+<section class="mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:px-8">
+    <div class="overflow-hidden rounded-fs-lg border border-border bg-surface-raised shadow-fs-sm">
+        <div class="h-1 bg-tide" aria-hidden="true"></div>
+        <div class="flex flex-col items-start gap-6 px-5 py-10 sm:px-8">
+        <h2 class="max-w-xl font-display text-3xl font-semibold leading-tight text-text">Start the record. The rest of the care follows it.</h2>
+        <p class="max-w-xl text-base leading-relaxed text-text">Register as an owner, veterinarian, or shelter. The pet stays the shared object.</p>
+        <div class="flex flex-wrap gap-3">
             <x-ui.button href="{{ route('register') }}">Create an account</x-ui.button>
             <x-ui.button href="{{ route('adopt.index') }}" variant="secondary">See animals waiting</x-ui.button>
+        </div>
         </div>
     </div>
 </section>

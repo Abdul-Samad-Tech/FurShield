@@ -17,7 +17,7 @@
         <div class="flex flex-wrap gap-2">
             @foreach ($pets as $pet)
                 <button type="button" @click="tab = {{ $pet->id }}" class="rounded-full px-4 py-2 text-sm font-medium transition"
-                    :class="tab === {{ $pet->id }} ? 'bg-tide text-white' : 'bg-white text-ink-soft border border-mist-deep'">
+                    :class="tab === {{ $pet->id }} ? 'bg-tide text-text-inverse' : 'border border-border bg-surface-raised text-text'">
                     {{ $pet->name }}
                 </button>
             @endforeach

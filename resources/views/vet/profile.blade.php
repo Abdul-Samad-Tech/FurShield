@@ -26,7 +26,7 @@
                 <p class="text-sm text-text">Each row is one weekday window. Visits are cut into equal lengths, and owners only see times nobody else has taken.</p>
                 <script type="application/json" id="slot-editor-seed">@json($windows)</script>
                 <template x-for="(row, index) in rows" :key="index">
-                    <div class="grid gap-fs-2xs rounded-fs-md border border-border p-fs-sm sm:grid-cols-4">
+                    <div class="grid gap-fs-2xs rounded-fs-md border border-border p-fs-sm sm:grid-cols-2 lg:grid-cols-4">
                         <label class="grid gap-fs-2xs text-sm font-medium text-text">
                             Weekday
                             <select class="rounded-fs-md border border-border-strong bg-surface-raised px-fs-xs py-fs-xs text-sm text-text focus:border-focus focus:outline-none focus:ring-2 focus:ring-focus/40" x-model="row.weekday" :name="`windows[${index}][weekday]`">

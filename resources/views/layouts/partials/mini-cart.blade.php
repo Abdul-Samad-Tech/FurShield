@@ -35,7 +35,7 @@
                     <template x-for="item in $store.cart.items" :key="item.id">
                         <li class="rounded-fs-md border border-border p-fs-sm">
                             <div class="flex gap-fs-sm">
-                                <img :src="item.image" :alt="item.name" class="size-16 shrink-0 rounded-fs-sm object-cover">
+                                <img :src="item.image" :alt="item.name" class="size-16 shrink-0 rounded-fs-sm bg-surface-sunken object-contain object-center">
                                 <div class="min-w-0 flex-1">
                                     <a :href="item.url" class="font-medium text-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus" x-text="item.name"></a>
                                     <p class="text-sm text-text-muted" x-text="item.line_label"></p>

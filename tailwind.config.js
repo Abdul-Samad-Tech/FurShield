@@ -41,18 +41,18 @@ export default {
                 },
                 focus: 'rgb(var(--fs-focus) / <alpha-value>)',
                 ink: {
-                    DEFAULT: '#102027',
-                    soft: '#243B44',
-                    mute: '#5B737C',
+                    DEFAULT: 'rgb(var(--fs-ink) / <alpha-value>)',
+                    soft: 'rgb(var(--fs-ink-soft) / <alpha-value>)',
+                    mute: 'rgb(var(--fs-ink-mute) / <alpha-value>)',
                 },
                 mist: {
-                    DEFAULT: '#F3FAF8',
-                    deep: '#D7EEE8',
+                    DEFAULT: 'rgb(var(--fs-mist) / <alpha-value>)',
+                    deep: 'rgb(var(--fs-mist-deep) / <alpha-value>)',
                 },
                 tide: {
-                    DEFAULT: '#0E7C74',
-                    bright: '#19A89B',
-                    deep: '#0A5C56',
+                    DEFAULT: 'rgb(var(--fs-tide-rgb) / <alpha-value>)',
+                    bright: 'rgb(var(--fs-tide-bright-rgb) / <alpha-value>)',
+                    deep: 'rgb(var(--fs-tide-deep-rgb) / <alpha-value>)',
                 },
                 bloom: {
                     DEFAULT: '#E8A87C',
@@ -61,6 +61,7 @@ export default {
             },
             fontFamily: {
                 display: ['Syne', ...defaultTheme.fontFamily.sans],
+                hero: ['Montserrat', ...defaultTheme.fontFamily.sans],
                 sans: ['Outfit', ...defaultTheme.fontFamily.sans],
             },
             spacing: {
@@ -82,8 +83,8 @@ export default {
                 'fs-xl': 'var(--fs-radius-xl)',
             },
             boxShadow: {
-                glow: '0 20px 60px rgba(14, 124, 116, 0.18)',
-                soft: '0 12px 40px rgba(16, 32, 39, 0.08)',
+                glow: 'var(--fs-shadow-glow)',
+                soft: 'var(--fs-shadow-soft)',
                 'fs-xs': 'var(--fs-shadow-xs)',
                 'fs-sm': 'var(--fs-shadow-sm)',
                 'fs-md': 'var(--fs-shadow-md)',
@@ -116,8 +117,7 @@ export default {
             backgroundImage: {
                 'hero-mesh':
                     'radial-gradient(circle at 15% 20%, rgba(25,168,155,0.28), transparent 40%), radial-gradient(circle at 85% 10%, rgba(232,168,124,0.25), transparent 35%), radial-gradient(circle at 70% 80%, rgba(14,124,116,0.18), transparent 45%), linear-gradient(160deg, #07181C 0%, #0E3A38 48%, #123C36 100%)',
-                'page-wash':
-                    'radial-gradient(circle at top left, rgba(25,168,155,0.12), transparent 28%), radial-gradient(circle at top right, rgba(232,168,124,0.12), transparent 24%), linear-gradient(180deg, #F3FAF8 0%, #EEF7F4 100%)',
+                'page-wash': 'var(--fs-page-wash)',
             },
         },
     },

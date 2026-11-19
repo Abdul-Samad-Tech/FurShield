@@ -2,7 +2,7 @@
 @section('title', $listing->pet_name)
 @section('content')
 <section class="mx-auto max-w-5xl px-4 pb-20 pt-28 sm:px-6">
-    <div class="grid gap-8 lg:grid-cols-2">
+    <div class="grid gap-8 md:grid-cols-2">
         <div class="surface overflow-hidden" data-reveal="zoom">
             <x-card-image :src="$listing->photo_path" type="adoption" :seed="$listing->id" :alt="$listing->pet_name" variant="square" />
         </div>

@@ -21,7 +21,7 @@
     "src": "node_modules/leaflet/dist/leaflet.css"
   },
   "resources/css/app.css": {
-    "file": "assets/app-BKUDnbCP.css",
+    "file": "assets/app-Bk5q3o4X.css",
     "src": "resources/css/app.css",
     "isEntry": true,
     "name": "app",
@@ -36,7 +36,7 @@
     "isDynamicEntry": true
   },
   "resources/js/app.js": {
-    "file": "assets/app-Ch839aFX.js",
+    "file": "assets/app-IYv4SyKq.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true,
@@ -53,7 +53,7 @@
     "isDynamicEntry": true
   },
   "resources/js/maps/nearby.js": {
-    "file": "assets/nearby-Ir0GSho7.js",
+    "file": "assets/nearby-DinbdsV2.js",
     "name": "nearby",
     "src": "resources/js/maps/nearby.js",
     "isDynamicEntry": true,

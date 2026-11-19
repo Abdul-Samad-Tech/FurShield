@@ -28,5 +28,7 @@ export function startHero() {
         });
     }
 
-    startHeroScene(hero);
+    if (hero.querySelector('[data-hero-canvas]')) {
+        startHeroScene(hero);
+    }
 }

@@ -18,8 +18,8 @@
             <p class="mt-fs-2xs text-text-muted">The next visit, the next due date, and the cart, in one place.</p>
         </div>
 
-        <div class="mt-fs-md grid gap-fs-sm lg:grid-cols-12">
-            <x-ui.card class="lg:col-span-7" data-reveal>
+        <div class="mt-fs-md grid gap-fs-sm md:grid-cols-12">
+            <x-ui.card class="md:col-span-7" data-reveal>
                 <p class="text-sm font-medium text-text-muted">Next best action</p>
                 @unless ($nextAction['tone'] === 'calm')
                     <div class="mt-fs-sm">
@@ -35,7 +35,7 @@
                 </div>
             </x-ui.card>
 
-            <div class="grid gap-fs-sm sm:grid-cols-2 lg:col-span-5 lg:grid-cols-2">
+            <div class="grid gap-fs-sm sm:grid-cols-2 md:col-span-5 lg:grid-cols-2">
                 <x-ui.stat-card label="Pets" :value="$pets->count()" icon="paw-print" :count="true" />
                 <x-ui.stat-card label="Due in 30 days" :value="$dueCount" icon="heart-pulse" :count="true" />
                 <x-ui.stat-card class="sm:col-span-2" label="Placed orders" :value="$placedCount" icon="shopping-bag" :count="true" :delta="$orderDelta">
@@ -45,7 +45,7 @@
                 </x-ui.stat-card>
             </div>
 
-            <x-ui.card class="lg:col-span-7" data-reveal="right">
+            <x-ui.card class="md:col-span-7" data-reveal="right">
                 <div class="flex flex-wrap items-center justify-between gap-fs-sm">
                     <h2 class="font-display text-2xl font-semibold text-text">Care radar</h2>
                     <a href="{{ route('owner.pets.index') }}" class="text-sm font-medium text-success focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus">All pets</a>
@@ -99,7 +99,7 @@
                 @endif
             </x-ui.card>
 
-            <x-ui.card class="lg:col-span-5" data-reveal="left">
+            <x-ui.card class="md:col-span-5" data-reveal="left">
                 <div class="flex items-center justify-between gap-fs-sm">
                     <h2 class="font-display text-2xl font-semibold text-text">Upcoming appointments</h2>
                     <x-ui.button :href="route('owner.appointments.create')" variant="ghost" size="sm">Book</x-ui.button>
@@ -120,7 +120,7 @@
                 @endif
             </x-ui.card>
 
-            <section class="lg:col-span-12" aria-labelledby="quick-actions-heading">
+            <section class="md:col-span-12" aria-labelledby="quick-actions-heading">
                 <h2 id="quick-actions-heading" class="font-display text-2xl font-semibold text-text">Quick actions</h2>
                 <div class="mt-fs-sm grid gap-fs-sm sm:grid-cols-2 lg:grid-cols-4">
                     <x-ui.button class="w-full" :href="route('owner.appointments.create')" variant="secondary">

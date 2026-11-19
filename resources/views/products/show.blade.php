@@ -2,7 +2,7 @@
 @section('title', $product->name)
 @section('content')
 <section class="mx-auto max-w-7xl px-4 pb-20 pt-28 sm:px-6 lg:px-8">
-    <div class="grid items-start gap-8 lg:grid-cols-2">
+    <div class="grid items-start gap-8 md:grid-cols-2">
         <div class="space-y-6">
             <div class="surface overflow-hidden">
                 <x-card-image :src="$product->image_path" type="product" :seed="$product->id" :alt="$product->name" variant="square" eager />

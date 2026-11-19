@@ -123,7 +123,7 @@
     </div>
 </x-ui.card>
 
-<div class="mt-8 grid gap-6 lg:grid-cols-2">
+<div class="mt-8 grid gap-6 md:grid-cols-2">
     <div class="surface overflow-hidden">
         <x-card-image :src="$pet->photo_path" type="pet" :seed="$pet->id" :alt="$pet->name" variant="card" />
         <div class="p-6">
@@ -133,7 +133,7 @@
             <div class="mt-6 grid grid-cols-3 gap-3">
                 @foreach ($pet->gallery as $image)
                     @php $photo = \App\Support\DummyImages::describe($image, 'pet', $pet->id); @endphp
-                    <img src="{{ $photo['url'] }}" alt="{{ $photo['alt'] }}" @if ($photo['width']) width="{{ $photo['width'] }}" @endif @if ($photo['height']) height="{{ $photo['height'] }}" @endif loading="lazy" decoding="async" class="aspect-square rounded-2xl object-cover">
+                    <img src="{{ $photo['url'] }}" alt="{{ $photo['alt'] }}" @if ($photo['width']) width="{{ $photo['width'] }}" @endif @if ($photo['height']) height="{{ $photo['height'] }}" @endif loading="lazy" decoding="async" class="aspect-square rounded-2xl bg-surface-sunken object-contain object-center">
                 @endforeach
             </div>
         @endif

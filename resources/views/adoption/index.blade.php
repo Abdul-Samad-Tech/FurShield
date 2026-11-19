@@ -1,13 +1,15 @@
 @extends('layouts.app')
 @section('title', 'Adopt')
 @section('content')
-<section class="mx-auto max-w-7xl px-4 pb-20 pt-28 sm:px-6 lg:px-8">
-    <div data-reveal>
-        <h1 class="font-display text-5xl font-bold text-text">Find a forever friend</h1>
-        <p class="section-copy">Browse adoptable pets from shelters and tell them you're interested. There is no adoption fee and no transport in FurShield.</p>
-    </div>
+<x-public.page-hero
+    title="Find a forever friend"
+    copy="Browse adoptable pets from shelters and tell them you're interested. There is no adoption fee and no transport in FurShield."
+    image="images/catalog-puppy.jpg"
+    alt="A golden dog looking at the camera"
+/>
+<section class="mx-auto max-w-7xl px-4 pb-20 pt-8 sm:px-6 lg:px-8">
 
-    <form method="GET" class="surface mt-8 grid gap-3 p-4 md:grid-cols-3">
+    <form method="GET" class="surface mt-8 grid gap-3 p-4 sm:grid-cols-2 lg:grid-cols-3">
         @if ($answers)
             <input type="hidden" name="home" value="{{ $answers['home'] }}">
             <input type="hidden" name="kids" value="{{ $answers['kids'] }}">
@@ -44,7 +46,7 @@
                 <a href="{{ route('adopt.index', request()->only(['q', 'species'])) }}" class="text-sm font-medium text-text underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus">Clear match</a>
             @endif
         </div>
-        <div class="mt-fs-sm grid gap-fs-sm lg:grid-cols-5">
+        <div class="mt-fs-sm grid gap-fs-sm sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
             <fieldset>
                 <legend class="text-sm font-medium text-text">Home size</legend>
                 <div class="mt-fs-2xs grid gap-fs-3xs">
@@ -128,7 +130,7 @@
                         :aria-label="index === 0 ? card.name + ' adoption card' : null"
                     >
                         <div class="relative h-52 shrink-0">
-                            <img :src="card.image" :alt="card.name" class="h-full w-full object-cover" draggable="false">
+                            <img :src="card.image" :alt="card.name" class="h-full w-full bg-surface-sunken object-contain object-center" draggable="false">
                             <span data-stamp="right" class="absolute left-fs-sm top-fs-sm rounded-fs-xs bg-success-soft px-fs-2xs py-fs-3xs text-sm font-medium text-text opacity-0" aria-hidden="true">Interested</span>
                             <span data-stamp="left" class="absolute right-fs-sm top-fs-sm rounded-fs-xs bg-danger-soft px-fs-2xs py-fs-3xs text-sm font-medium text-text opacity-0" aria-hidden="true">Skip</span>
                             <span data-stamp="up" class="absolute left-1/2 top-fs-sm -translate-x-1/2 rounded-fs-xs bg-warning-soft px-fs-2xs py-fs-3xs text-sm font-medium text-text opacity-0" aria-hidden="true">Details</span>
@@ -192,7 +194,7 @@
                 </div>
                 <template x-if="sheetCard && sheet === 'details'">
                     <div class="mt-fs-sm">
-                        <img :src="sheetCard.image" :alt="sheetCard.name" class="h-48 w-full rounded-fs-md object-cover">
+                        <img :src="sheetCard.image" :alt="sheetCard.name" class="h-48 w-full rounded-fs-md bg-surface-sunken object-contain object-center">
                         <p class="mt-fs-sm text-sm text-text-muted" x-text="[sheetCard.species, sheetCard.breed, sheetCard.gender, sheetCard.age === null ? '' : sheetCard.age + ' years'].filter(Boolean).join(' · ')"></p>
                         <p class="mt-fs-2xs text-sm text-text" x-text="sheetCard.health"></p>
                         <p class="mt-fs-sm text-sm text-text" x-text="sheetCard.description"></p>

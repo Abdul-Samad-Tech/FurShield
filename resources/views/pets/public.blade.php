@@ -21,7 +21,7 @@
                     alt="{{ $card->photoAlt }}"
                     @if ($card->photoWidth) width="{{ $card->photoWidth }}" @endif
                     @if ($card->photoHeight) height="{{ $card->photoHeight }}" @endif
-                    class="mb-fs-md aspect-square w-full rounded-fs-lg object-cover"
+                    class="mb-fs-md aspect-square w-full rounded-fs-lg bg-surface-sunken object-contain object-center"
                 >
             @endif
 

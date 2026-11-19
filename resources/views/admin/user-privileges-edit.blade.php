@@ -59,7 +59,7 @@
         @endforeach
     </div>
 
-    <div class="flex flex-wrap items-center justify-between gap-3 border-t border-mist-deep bg-white/70 px-5 py-4">
+    <div class="flex flex-wrap items-center justify-between gap-3 border-t border-border bg-surface-raised px-5 py-4">
         <p class="text-sm text-ink-mute">Saved privileges apply to this user only.</p>
         <button type="submit" class="btn-primary">Save user privileges</button>
     </div>

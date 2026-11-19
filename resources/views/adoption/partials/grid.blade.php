@@ -1,4 +1,4 @@
-<div class="mt-fs-lg grid gap-fs-md sm:grid-cols-2 lg:grid-cols-3">
+<div class="mt-fs-lg grid gap-fs-md sm:grid-cols-2 md:grid-cols-3">
     @forelse ($listings as $listing)
         <a href="{{ route('adopt.show', $listing) }}" class="surface overflow-hidden transition hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus">
             <x-card-image :src="$listing->photo_path" type="adoption" :seed="$listing->id" :alt="$listing->pet_name" variant="card" />
@@ -17,7 +17,7 @@
             </div>
         </a>
     @empty
-        <div class="sm:col-span-2 lg:col-span-3">
+        <div class="sm:col-span-2 md:col-span-3">
             <x-ui.empty-state title="No pets to adopt" icon="paw-print" description="Nothing matches that search. Clear the filters or check again after a shelter adds a listing.">
                 <x-slot:action>
                     <x-ui.button :href="route('adopt.index')">Clear filters</x-ui.button>

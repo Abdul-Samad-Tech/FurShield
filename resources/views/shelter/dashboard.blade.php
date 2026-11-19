@@ -18,14 +18,14 @@
             <p class="mt-fs-2xs text-text-muted">Interest moves from a first note, to a yes, to an adoption.</p>
         </div>
 
-        <div class="mt-fs-md grid gap-fs-sm sm:grid-cols-3">
+        <div class="mt-fs-md grid gap-fs-sm sm:grid-cols-2 lg:grid-cols-3">
             <x-ui.stat-card label="Listings" :value="$listingCount" icon="house" :count="true" />
             <x-ui.stat-card label="Interest" :value="$interestCount" icon="heart" :count="true" />
             <x-ui.stat-card label="Adopted" :value="$stages[2]['count']" icon="circle-check" :count="true" />
         </div>
 
-        <div class="mt-fs-sm grid gap-fs-sm lg:grid-cols-12">
-            <x-ui.card class="lg:col-span-7">
+        <div class="mt-fs-sm grid gap-fs-sm md:grid-cols-12">
+            <x-ui.card class="md:col-span-7">
                 <div class="flex items-center justify-between gap-fs-sm">
                     <h2 class="font-display text-2xl font-semibold text-text">Interest funnel</h2>
                     <a href="{{ route('shelter.listings') }}" class="text-sm font-medium text-success focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus">Listings</a>
@@ -62,7 +62,7 @@
                 @endif
             </x-ui.card>
 
-            <x-ui.card class="lg:col-span-5">
+            <x-ui.card class="md:col-span-5">
                 <h2 class="font-display text-2xl font-semibold text-text">Latest interest</h2>
                 @if ($interests->isEmpty())
                     <x-ui.empty-state icon="inbox" title="No requests" description="Adopter notes appear here with the animal they asked about." />

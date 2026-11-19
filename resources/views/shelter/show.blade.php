@@ -17,7 +17,7 @@
     </form>
 </div>
 
-<div class="mt-8 grid gap-6 lg:grid-cols-2">
+<div class="mt-8 grid gap-6 md:grid-cols-2">
     <section class="surface p-6">
         <h2 class="font-display text-2xl font-semibold">Care logs</h2>
         <div class="mt-4 space-y-3">

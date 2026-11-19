@@ -4,7 +4,7 @@
 <h1 class="font-display text-4xl font-bold">{{ $pet->name }} health timeline</h1>
 <p class="mt-2 text-ink-mute">Vaccinations, treatments, documents, and insurance in one visual timeline.</p>
 
-<div class="mt-10 grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
+<div class="mt-10 grid gap-8 md:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)]">
     <section class="surface p-6">
         <h2 class="font-display text-2xl font-semibold">Timeline</h2>
         <div class="relative mt-8 ml-3 space-y-8 border-l-2 border-tide/20 pl-8">

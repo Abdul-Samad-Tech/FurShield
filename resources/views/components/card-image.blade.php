@@ -22,7 +22,8 @@
     $sizeClass = $variants[$variant] ?? $variants['card'];
 @endphp
 
-<div {{ $attributes->class(['overflow-hidden bg-mist-deep', $variant === 'thumb' ? 'rounded-2xl shrink-0' : '']) }}>
+<div {{ $attributes->class(['relative overflow-hidden bg-surface-sunken', $variant === 'thumb' ? 'rounded-2xl shrink-0' : '']) }}>
+    <div class="absolute inset-0 motion-safe:animate-pulse bg-surface-sunken" data-image-skeleton aria-hidden="true"></div>
     <img
         src="{{ $image['url'] }}"
         alt="{{ $altText }}"
@@ -30,6 +31,7 @@
         @if ($image['height']) height="{{ $image['height'] }}" @endif
         @if ($eager) fetchpriority="high" @else loading="lazy" fetchpriority="low" @endif
         decoding="async"
-        class="{{ $sizeClass }} object-cover object-center"
+        class="{{ $sizeClass }} relative bg-surface-sunken object-contain object-center"
+        onload="this.previousElementSibling && this.previousElementSibling.remove()"
     >
 </div>

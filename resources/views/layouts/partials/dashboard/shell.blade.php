@@ -11,7 +11,7 @@
     <aside class="hidden border-r border-border bg-surface-raised lg:block">
         <div class="sticky top-0 flex h-screen flex-col gap-fs-sm overflow-y-auto p-fs-sm">
             <a href="{{ route('home') }}" class="flex items-center gap-fs-sm rounded-fs-sm px-fs-sm py-fs-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus">
-                <span class="grid size-10 place-items-center rounded-fs-sm bg-success font-display text-sm font-bold text-text-inverse">FS</span>
+                <img src="{{ asset('images/brand-shield.png') }}" alt="" width="40" height="44" class="size-10 object-contain">
                 <span>
                     <span class="block font-display text-lg font-semibold text-text">FurShield</span>
                     <span class="block text-xs text-text-muted">{{ auth()->user()->role->label() }}</span>
@@ -31,6 +31,7 @@
                 <p class="text-xs text-text-muted">{{ auth()->user()->role->label() }}</p>
                 <p class="truncate font-display text-lg font-semibold text-text">@yield('title', 'Dashboard')</p>
             </div>
+            @include('layouts.partials.theme-toggle')
             <button type="button" class="grid size-11 place-items-center rounded-fs-sm text-text hover:bg-surface-sunken focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus" @click="$store.palette.show()" :aria-expanded="$store.palette.open ? 'true' : 'false'" aria-controls="command-palette" aria-label="Search">
                 <x-ui.icon name="search" />
             </button>

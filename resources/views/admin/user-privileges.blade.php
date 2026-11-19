@@ -14,7 +14,7 @@
     <a href="{{ route('admin.privileges') }}" class="btn-ghost">Open role matrix</a>
 </div>
 
-<form method="GET" class="surface mt-8 grid gap-3 p-4 md:grid-cols-3">
+<form method="GET" class="surface mt-8 grid gap-3 p-4 sm:grid-cols-2 lg:grid-cols-3">
     <input name="q" value="{{ request('q') }}" placeholder="Search name or email" class="field">
     <select name="role" class="field">
         <option value="">All roles</option>

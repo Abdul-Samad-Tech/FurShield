@@ -15,7 +15,7 @@
                 <div class="mt-2 grid grid-cols-1 gap-2 sm:grid-cols-3">
                     @foreach ($roles as $roleOption)
                         <label class="cursor-pointer rounded-2xl border px-3 py-3 text-center text-sm font-medium transition"
-                            :class="role === '{{ $roleOption->value }}' ? 'border-tide bg-tide text-white' : 'border-mist-deep bg-white'">
+                            :class="role === '{{ $roleOption->value }}' ? 'border-tide bg-tide text-text-inverse' : 'border-border bg-surface-raised text-text'">
                             <input type="radio" class="hidden" name="role" value="{{ $roleOption->value }}" x-model="role" @checked(old('role', 'owner') === $roleOption->value)>
                             {{ $roleOption->label() }}
                         </label>

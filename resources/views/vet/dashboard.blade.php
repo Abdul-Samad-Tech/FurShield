@@ -23,8 +23,8 @@
             <x-ui.stat-card label="Pending approvals" :value="$pending->count()" icon="inbox" :count="true" />
         </div>
 
-        <div class="mt-fs-sm grid gap-fs-sm lg:grid-cols-12">
-            <x-ui.card class="lg:col-span-7">
+        <div class="mt-fs-sm grid gap-fs-sm md:grid-cols-12">
+            <x-ui.card class="md:col-span-7">
                 <h2 class="font-display text-2xl font-semibold text-text">Today</h2>
                 @if ($next && ! $today->contains('id', $next->id))
                     <div class="mt-fs-sm rounded-fs-md bg-success-soft p-fs-sm text-text">
@@ -56,7 +56,7 @@
                 @endif
             </x-ui.card>
 
-            <x-ui.card class="lg:col-span-5">
+            <x-ui.card class="md:col-span-5">
                 <h2 class="font-display text-2xl font-semibold text-text">Pending approvals</h2>
                 @if ($pending->isEmpty())
                     <x-ui.empty-state icon="circle-check" title="Nothing waiting" description="New requests land here. Approve or decline each one in a click." />

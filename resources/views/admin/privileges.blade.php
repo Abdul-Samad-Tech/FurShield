@@ -19,7 +19,7 @@
 
     <div class="overflow-x-auto">
         <table class="min-w-full border-collapse text-left text-sm">
-            <thead class="bg-tide text-white">
+            <thead class="bg-tide text-text-inverse">
                 <tr>
                     <th class="sticky left-0 z-10 bg-tide px-4 py-4 font-display text-base font-semibold">Privilege</th>
                     @foreach ($roles as $role)
@@ -47,7 +47,7 @@
             </thead>
             <tbody>
                 @foreach ($privileges as $index => $privilege)
-                    <tr class="{{ $index % 2 === 0 ? 'bg-white/80' : 'bg-mist/50' }} border-b border-mist-deep/70">
+                    <tr class="{{ $index % 2 === 0 ? 'bg-surface-raised' : 'bg-surface' }} border-b border-border">
                         <td class="sticky left-0 z-10 bg-inherit px-4 py-3 font-medium text-ink">
                             {{ $privilege->label() }}
                             <div class="text-xs font-normal text-ink-mute">{{ $privilege->value }}</div>
@@ -76,7 +76,7 @@
         </table>
     </div>
 
-    <div class="flex flex-wrap items-center justify-between gap-3 border-t border-mist-deep bg-white/70 px-4 py-4">
+    <div class="flex flex-wrap items-center justify-between gap-3 border-t border-border bg-surface-raised px-4 py-4">
         <p class="text-sm text-ink-mute">Changes apply immediately after save. Admin always retains full access.</p>
         <button type="submit" class="btn-primary">Save privileges</button>
     </div>

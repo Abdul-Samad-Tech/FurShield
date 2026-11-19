@@ -3,31 +3,23 @@
 @section('content')
 @php
     $chipQuery = request()->except(['page', 'category']);
-    $lcpProduct = $products->first();
-    $lcpImage = $lcpProduct
-        ? \App\Support\DummyImages::describe($lcpProduct->image_path, 'product', (int) $lcpProduct->id)
-        : null;
 @endphp
-@if ($lcpImage)
-    @push('head')
-        <link rel="preload" as="image" href="{{ $lcpImage['url'] }}" fetchpriority="high">
-    @endpush
-@endif
+<x-public.page-hero
+    title="Pet care shop"
+    copy="Browse food, grooming, toys, health, accessories, and training. Checkout takes contact details, a pickup or delivery address, and payment."
+    image="images/catalog-bowls.jpg"
+    alt="Kibble in a blue bowl beside a dog's paws on a wood floor"
+/>
 <section
-    class="mx-auto max-w-7xl px-4 pb-20 pt-28 sm:px-6 lg:px-8"
+    class="mx-auto max-w-7xl px-4 pb-20 pt-8 sm:px-6 lg:px-8"
     x-data="fsShop"
     data-catalog-id="shop-catalog"
     @quick-view="openQuick($event.detail)"
     @add-to-cart="addProduct($event.detail)"
     @keydown.escape.window="onEscape()"
 >
-    <div>
-        <h1 class="text-balance font-display text-4xl font-bold text-text sm:text-5xl">Pet care shop</h1>
-        <p class="mt-fs-2xs max-w-[65ch] text-text">Browse food, grooming, toys, health, accessories, and training. Checkout takes contact details, a pickup or delivery address, and payment.</p>
-    </div>
-
-    <div class="sticky top-20 z-30 -mx-4 mt-fs-md border-y border-border bg-surface/95 px-4 py-fs-sm backdrop-blur sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
-        <div class="flex gap-fs-2xs overflow-x-auto" role="group" aria-label="Product categories">
+    <div class="sticky top-24 z-30 rounded-fs-lg border border-border bg-surface-raised/95 px-4 py-fs-sm shadow-fs-sm backdrop-blur">
+        <div class="flex flex-wrap gap-fs-2xs" role="group" aria-label="Product categories">
             <a
                 href="{{ route('products.index', $chipQuery) }}"
                 data-shop-filter
@@ -69,7 +61,7 @@
             @if ($recommendation['products']->isEmpty())
                 <x-ui.empty-state class="mt-fs-sm" title="Nothing picked yet" icon="shopping-bag" description="Nothing in the shop matches {{ $recommendation['pet']->name }} yet." />
             @else
-                <div class="mt-fs-sm grid gap-fs-sm sm:grid-cols-2 lg:grid-cols-4">
+                <div class="mt-fs-sm grid gap-fs-sm sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                     @foreach ($recommendation['products'] as $product)
                         <x-product-card :product="$product" />
                     @endforeach
@@ -82,7 +74,7 @@
         <section class="mt-fs-lg" aria-labelledby="buy-again-heading">
             <h2 id="buy-again-heading" class="font-display text-2xl font-semibold text-text">Buy again</h2>
             <p class="mt-fs-3xs text-sm text-text-muted">From orders you already placed.</p>
-            <div class="mt-fs-sm grid gap-fs-sm sm:grid-cols-2 lg:grid-cols-4">
+            <div class="mt-fs-sm grid gap-fs-sm sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                 @foreach ($buyAgain as $product)
                     <x-product-card :product="$product" />
                 @endforeach
@@ -90,7 +82,7 @@
         </section>
     @endif
 
-    <div x-show="filtering" x-cloak class="mt-fs-lg grid gap-fs-sm sm:grid-cols-2 lg:grid-cols-3" role="status" aria-label="Loading products">
+    <div x-show="filtering" x-cloak class="mt-fs-lg grid gap-fs-sm sm:grid-cols-2 md:grid-cols-3" role="status" aria-label="Loading products">
         @foreach (range(1, 6) as $unused)
             <x-ui.skeleton variant="card" />
         @endforeach
@@ -105,7 +97,7 @@
                 </x-slot:action>
             </x-ui.empty-state>
         @else
-            <div class="grid gap-fs-sm sm:grid-cols-2 lg:grid-cols-3">
+            <div class="grid gap-fs-sm sm:grid-cols-2 md:grid-cols-3">
                 @foreach ($products as $product)
                     <x-product-card :product="$product" :eager="$loop->first" />
                 @endforeach
@@ -143,7 +135,7 @@
             <p x-show="quickError" x-cloak class="mt-fs-sm text-sm text-text" role="alert" x-text="quickError"></p>
             <template x-if="quick && quick.name && !loadingQuick">
                 <div class="mt-fs-sm">
-                    <img :src="quick.image" :alt="quick.name" class="h-48 w-full rounded-fs-md object-cover">
+                    <img :src="quick.image" :alt="quick.name" class="h-48 w-full rounded-fs-md bg-surface-sunken object-contain object-center">
                     <p class="mt-fs-sm text-xs font-medium text-text-muted" x-text="quick.category"></p>
                     <p class="mt-fs-2xs text-sm text-text" x-text="quick.description"></p>
                     <p class="mt-fs-sm font-display text-2xl font-semibold" x-text="quick.price_label"></p>

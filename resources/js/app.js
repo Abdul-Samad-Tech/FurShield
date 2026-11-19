@@ -2,10 +2,12 @@ import './bootstrap';
 import Alpine from 'alpinejs';
 import { registerAssistant } from './assistant';
 import { startMotion } from './motion';
+import { startTheme } from './theme';
 import { registerUi, startIcons } from './ui';
 
 window.Alpine = Alpine;
 
+startTheme();
 registerUi(Alpine);
 registerAssistant(Alpine);
 Alpine.start();
