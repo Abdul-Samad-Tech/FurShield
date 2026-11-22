@@ -229,6 +229,77 @@
     </div>
 </section>
 
+<section class="mx-auto w-[calc(100%-1rem)] max-w-[90rem] pb-16 sm:w-[calc(100%-1.5rem)]" aria-labelledby="pocket-heading">
+    <div class="relative overflow-hidden rounded-fs-lg bg-[#02181e] px-5 py-10 text-white shadow-fs-lg sm:px-8 sm:py-14 lg:px-12">
+        <img src="{{ asset('images/catalog-outdoors.jpg') }}" alt="" width="1200" height="1797" class="pointer-events-none absolute -left-10 top-0 h-56 w-40 object-cover opacity-30" loading="lazy" decoding="async">
+        <img src="{{ asset('images/catalog-kitten.jpg') }}" alt="" width="1200" height="800" class="pointer-events-none absolute -right-8 bottom-0 h-48 w-40 object-cover opacity-25" loading="lazy" decoding="async">
+        <div class="relative grid items-stretch gap-8 lg:grid-cols-[minmax(14rem,17rem)_minmax(0,1fr)_16rem] lg:gap-12">
+            <div class="relative mx-auto h-[22rem] w-full max-w-[13rem] lg:mx-0 lg:h-auto lg:max-w-none">
+                <div class="h-full lg:absolute lg:inset-0">
+                    <x-public.phone-home />
+                </div>
+            </div>
+            <div>
+                <p class="text-sm font-semibold text-[#2ee6d6]">FurShield on your phone</p>
+                <h2 id="pocket-heading" class="mt-3 max-w-md font-display text-4xl font-bold leading-tight tracking-tight sm:text-5xl">Pet care, ready in your hand</h2>
+                <p class="mt-4 max-w-lg text-base leading-relaxed text-white/85">Open the record, book a visit, shop essentials, and follow an adoption from your phone.</p>
+                <ul class="mt-6 grid gap-3 text-sm sm:grid-cols-2">
+                    @foreach (['One record for every pet', 'Book a visit from that record', 'Shop food, grooming, and supplies', 'Tell a shelter you are interested'] as $point)
+                        <li class="flex items-center gap-2">
+                            <x-ui.icon name="circle-check" size="sm" class="shrink-0 text-[#2ee6d6]" />
+                            <span>{{ $point }}</span>
+                        </li>
+                    @endforeach
+                </ul>
+                <div class="mt-6 flex flex-wrap gap-3">
+                    <div class="inline-flex min-h-12 items-center gap-2.5 rounded-lg bg-white px-3 py-1.5 text-[#102027]">
+                        <svg viewBox="0 0 24 24" class="size-6 shrink-0" aria-hidden="true">
+                            <path fill="currentColor" d="M16.37 12.72c-.03-2.3 1.88-3.4 1.97-3.46-1.08-1.57-2.75-1.79-3.34-1.81-1.4-.15-2.76.84-3.48.84-.73 0-1.84-.82-3.03-.8-1.55.02-3 .92-3.8 2.33-1.64 2.84-.42 7.02 1.16 9.32.78 1.13 1.7 2.39 2.91 2.34 1.17-.05 1.61-.75 3.03-.75 1.41 0 1.81.75 3.04.72 1.26-.02 2.06-1.14 2.82-2.27.9-1.3 1.26-2.57 1.28-2.63-.03-.01-2.45-.94-2.48-3.73zM14.7 6.3c.63-.78 1.06-1.86.94-2.94-.91.04-2.02.62-2.67 1.39-.58.68-1.1 1.78-.96 2.82 1.02.08 2.06-.51 2.69-1.27z"/>
+                        </svg>
+                        <span class="text-left leading-none">
+                            <span class="block text-[10px] font-medium tracking-wide">Available on the</span>
+                            <span class="mt-1 block font-display text-[15px] font-semibold tracking-tight">App Store</span>
+                        </span>
+                    </div>
+                    <div class="inline-flex min-h-12 items-center gap-2.5 rounded-lg bg-white px-3 py-1.5 text-[#102027]">
+                        <svg viewBox="0 0 24 24" class="size-6 shrink-0" aria-hidden="true">
+                            <path fill="#34A853" d="M3.5 20.4 13.2 12 3.5 3.6c-.3.4-.5.9-.5 1.5v13.8c0 .6.2 1.1.5 1.5z"/>
+                            <path fill="#FBBC04" d="M16.7 15.2 13.2 12 3.5 20.4c.5.5 1.2.6 2 .2l11.2-5.4z"/>
+                            <path fill="#EA4335" d="M20.2 10.7 16.7 8.8 13.2 12l3.5 3.2 3.5-1.7c.8-.4.8-1.4 0-1.8z"/>
+                            <path fill="#4285F4" d="M3.5 3.6c.5-.5 1.2-.6 2-.2l11.2 5.4L13.2 12 3.5 3.6z"/>
+                        </svg>
+                        <span class="text-left leading-none">
+                            <span class="block text-[10px] font-medium tracking-wide">Available on</span>
+                            <span class="mt-1 block font-display text-[15px] font-semibold tracking-tight">Google Play</span>
+                        </span>
+                    </div>
+                </div>
+                <div class="mt-5 flex flex-wrap items-center gap-3">
+                    <span class="text-sm font-semibold">Open it now</span>
+                    <a href="{{ route('register') }}" class="inline-flex h-12 items-center gap-2 rounded-lg bg-[#04222a] px-3 text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">
+                        <x-ui.icon name="paw-print" size="sm" class="text-[#2ee6d6]" />
+                        <span class="text-left leading-tight">
+                            <span class="block text-[10px] text-white/70">Start a record</span>
+                            <span class="block text-sm font-semibold">Create an account</span>
+                        </span>
+                    </a>
+                    <a href="{{ route('products.index') }}" class="inline-flex h-12 items-center gap-2 rounded-lg bg-[#04222a] px-3 text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">
+                        <x-ui.icon name="shopping-bag" size="sm" class="text-[#2ee6d6]" />
+                        <span class="text-left leading-tight">
+                            <span class="block text-[10px] text-white/70">From the same record</span>
+                            <span class="block text-sm font-semibold">Shop essentials</span>
+                        </span>
+                    </a>
+                </div>
+            </div>
+            <a href="{{ route('vets.index') }}" class="group relative mx-auto block w-full max-w-xs overflow-hidden rounded-fs-lg border border-white/15 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">
+                <img src="{{ asset('images/catalog-clinician.jpg') }}" width="1200" height="800" alt="A clinician in a white coat standing outdoors" class="aspect-[4/3] w-full object-cover" loading="lazy" decoding="async">
+                <span class="absolute inset-x-0 bottom-0 bg-[#02181e]/75 px-4 py-3 text-sm font-semibold">Find a veterinarian</span>
+            </a>
+        </div>
+    </div>
+</section>
+
 <section class="mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:px-8">
     <div class="overflow-hidden rounded-fs-lg border border-border bg-surface-raised shadow-fs-sm">
         <div class="h-1 bg-tide" aria-hidden="true"></div>

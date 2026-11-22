@@ -4,6 +4,8 @@
 <x-public.page-hero
     title="Contact FurShield"
     copy="Reach the team or find us on the map. Static contact details for evaluation and support."
+    image="images/catalog-portrait.jpg"
+    alt="A brown dog standing in tall grass"
 />
 <section class="mx-auto max-w-6xl px-4 pb-20 pt-8 sm:px-6 lg:px-8">
     <div class="grid gap-8 md:grid-cols-2">
