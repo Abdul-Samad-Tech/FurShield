@@ -1,12 +1,13 @@
 @extends('layouts.app')
 @section('title', 'About Us')
 @section('content')
-<section class="relative mx-auto mt-24 w-[calc(100%-1rem)] max-w-[90rem] overflow-hidden rounded-fs-lg border border-white/10 bg-[#02181e] pb-16 text-white shadow-fs-lg sm:w-[calc(100%-1.5rem)]">
-    <img src="{{ asset('images/catalog-two-dogs.jpg') }}" alt="" width="1200" height="801" class="absolute inset-0 h-full w-full object-cover opacity-40" decoding="async">
-    <div class="relative z-10 h-1 bg-tide" aria-hidden="true"></div>
-    <div class="relative z-10 mx-auto max-w-4xl px-4 pb-4 pt-12 sm:px-6">
-        <div class="font-display text-6xl font-extrabold" data-reveal>FurShield</div>
-        <p class="mt-6 max-w-2xl text-lg text-white/80" data-reveal>
+<section class="relative mx-auto mt-24 grid w-[calc(100%-1rem)] max-w-[90rem] overflow-hidden rounded-fs-lg border border-white/10 bg-[#02181e] text-white shadow-fs-lg sm:w-[calc(100%-1.5rem)] lg:grid-cols-2">
+    <div class="relative aspect-[3/2] bg-[#02181e] lg:order-2">
+        <img src="{{ asset('images/catalog-two-dogs.jpg') }}" alt="" width="1200" height="801" class="absolute inset-0 h-full w-full object-contain object-center" decoding="async">
+    </div>
+    <div class="relative z-10 flex flex-col justify-end px-6 py-10 sm:px-10">
+        <div class="font-display text-5xl font-extrabold sm:text-6xl" data-reveal>FurShield</div>
+        <p class="mt-6 max-w-xl text-lg text-white/80" data-reveal>
             We built FurShield so every pet owner, veterinarian, and shelter can share one clear source of truth for care, records, and compassion.
         </p>
     </div>

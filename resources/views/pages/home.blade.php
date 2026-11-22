@@ -28,20 +28,20 @@
     ];
 @endphp
 
-<section data-hero class="relative isolate mx-auto mt-24 flex h-[calc(100svh-7.5rem)] min-h-[560px] w-[calc(100%-1rem)] max-h-[760px] max-w-[90rem] flex-col overflow-hidden rounded-fs-lg bg-[#02181e] shadow-fs-lg sm:w-[calc(100%-1.5rem)]">
+<section data-hero class="relative isolate mx-auto mt-24 flex h-auto min-h-0 w-[calc(100%-1rem)] max-h-none max-w-[90rem] flex-col overflow-hidden rounded-fs-lg bg-[#02181e] shadow-fs-lg sm:w-[calc(100%-1.5rem)] lg:h-[calc(100svh-7.5rem)] lg:min-h-[560px] lg:max-h-[760px]">
     <img
         src="{{ asset('images/hero-scene.jpg') }}"
         width="1920"
         height="1080"
         alt="A veterinarian with a golden retriever and a kitten in a clinic"
-        class="absolute inset-0 h-full w-full object-cover object-center"
+        class="relative h-auto w-full object-contain object-center lg:absolute lg:inset-0 lg:h-full lg:object-cover"
         fetchpriority="high"
         decoding="async"
     >
-    <div class="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,#02181e_0%,rgba(2,24,30,0.88)_46%,rgba(2,24,30,0.45)_100%)] lg:bg-[linear-gradient(90deg,#02181e_0%,rgba(2,24,30,0.92)_34%,rgba(2,24,30,0.55)_52%,rgba(2,24,30,0.12)_68%,transparent_78%)]"></div>
-    <div class="pointer-events-none absolute bottom-0 left-0 h-24 w-[42%] rounded-[100%] bg-[#14b8aa]/30 blur-2xl"></div>
+    <div class="pointer-events-none absolute inset-0 hidden bg-[linear-gradient(90deg,#02181e_0%,rgba(2,24,30,0.92)_34%,rgba(2,24,30,0.55)_52%,rgba(2,24,30,0.12)_68%,transparent_78%)] lg:block"></div>
+    <div class="pointer-events-none absolute bottom-0 left-0 hidden h-24 w-[42%] rounded-[100%] bg-[#14b8aa]/30 blur-2xl lg:block"></div>
 
-    <div class="relative flex w-full flex-1 items-center justify-start px-6 py-10 sm:px-10 lg:px-16">
+    <div class="relative flex w-full items-center justify-start px-6 py-8 sm:px-10 lg:flex-1 lg:px-16 lg:py-10">
         <div class="max-w-xl text-left">
             <p class="inline-flex h-8 items-center gap-2 rounded-full border border-[#2ee6d6]/80 bg-[#02181e]/40 px-3 text-[13px] font-medium text-[#d9fffb]">
                 <x-ui.icon name="heart" size="sm" class="text-[#2ee6d6]" />
